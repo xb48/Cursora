@@ -161,7 +161,10 @@ animations/        one folder per animation (see animations/README.md)
 icon/              vector logo and the generated app icons
 assets/            brand logos, social preview and README screenshots
 scripts/           build, icon and logo scripts
+website/           the landing page (static Next.js site)
 ```
+
+The landing page builds with `cd website && npm install && npm run build` into `website/out/`. It copies its screenshots, logo, animation thumbnails and crosshair engine from the app at build time, so it always matches the current version.
 
 Want to add an animation? Read [animations/README.md](animations/README.md).
 

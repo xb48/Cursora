@@ -1,0 +1,7 @@
+# Dependencies, build output and files copied from the app by scripts/sync-assets.mjs
+node_modules/
+.next/
+out/
+next-env.d.ts
+public/generated/
+lib/generated.json

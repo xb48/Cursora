@@ -1,0 +1,20 @@
+{
+  "name": "cursora-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "The Cursora landing page (static Next.js site).",
+  "scripts": {
+    "sync": "node scripts/sync-assets.mjs",
+    "dev": "npm run sync && next dev",
+    "build": "npm run sync && next build",
+    "preview": "npx serve out"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
