@@ -1,0 +1,109 @@
+{
+  "id": "deadline",
+  "name": "Deadline",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A brass hourglass hanging from your cursor on a cord, with sand that really flows toward whichever bulb is lower. Swing it all the way over the top and time is up.",
+  "category": "Objects",
+  "tags": [
+    "hourglass",
+    "pendulum",
+    "sand",
+    "time"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#c9a13b",
+  "hints": [
+    "Move to swing",
+    "Flip it over to fire",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "swing",
+      "label": "Swing response",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "flow",
+      "label": "Sand speed",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "frame",
+      "label": "Brass",
+      "type": "color",
+      "group": "Look",
+      "default": "#c9a13b"
+    },
+    {
+      "key": "sand",
+      "label": "Sand",
+      "type": "color",
+      "group": "Look",
+      "default": "#f0c27b"
+    },
+    {
+      "key": "stamp",
+      "label": "Stamp text",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "stampText",
+      "label": "Stamp",
+      "type": "select",
+      "group": "Look",
+      "default": "TIME'S UP",
+      "options": [
+        "TIME'S UP",
+        "DEADLINE",
+        "HURRY!",
+        "TICK TOCK"
+      ]
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101a33"/><stop offset=".6" stop-color="#160f1c"/><stop offset="1" stop-color="#2a120c"/></linearGradient>
+    <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#eef1f6"/><stop offset=".75" stop-color="#b3b5b9"/><stop offset="1" stop-color="#77797b"/></linearGradient>
+    <linearGradient id="fin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7b5e"/><stop offset=".5" stop-color="#ff5a36"/><stop offset="1" stop-color="#99361f"/></linearGradient>
+    <linearGradient id="f1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#ff5a36" stop-opacity="0"/></linearGradient>
+    <linearGradient id="f2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff4d6"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></linearGradient>
+    <radialGradient id="glass" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#13314d"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <rect width="320" height="200" fill="url(#sky)"/>
+  <g fill="#fff" opacity=".6"><circle cx="40" cy="30" r="1"/><circle cx="120" cy="20" r=".8"/><circle cx="280" cy="40" r="1.1"/><circle cx="250" cy="170" r=".8"/><circle cx="20" cy="150" r=".9"/></g>
+  <g fill="#9aa0aa" opacity=".22"><circle cx="70" cy="156" r="12"/><circle cx="48" cy="170" r="16"/><circle cx="92" cy="146" r="9"/></g>
+  <g transform="translate(196 84) rotate(-28)">
+    <path d="M-36 -14 Q -90 -12 -128 0 Q -90 12 -36 14 Z" fill="#ff5a36" opacity=".55" filter="url(#glow)"/>
+    <path d="M-36 -12 Q -80 -11 -116 0 Q -80 11 -36 12 Z" fill="url(#f1)"/>
+    <path d="M-36 -7 Q -62 -6 -86 0 Q -62 6 -36 7 Z" fill="url(#f2)"/>
+    <g fill="#fff4d6" opacity=".85">
+      <path d="M-56 0 l 6 -4 l 6 4 l -6 4 Z"/><path d="M-76 0 l 4.5 -3 l 4.5 3 l -4.5 3 Z"/><path d="M-94 0 l 3 -2 l 3 2 l -3 2 Z"/>
+    </g>
+    <g filter="url(#sh)">
+      <path d="M-14 11 L -38 30 L -42 27 L -34 10 Z" fill="url(#fin)"/>
+      <path d="M-14 -11 L -38 -30 L -42 -27 L -34 -10 Z" fill="url(#fin)"/>
+      <path d="M-34 -13 L 14 -15 Q 38 -13.5 50 0 Q 38 13.5 14 15 L -34 13 Z" fill="url(#hull)"/>
+    </g>
+    <path d="M-34 -13 L 14 -15 Q 38 -13.5 50 0 Q 38 13.5 14 15 L -34 13 Z" fill="none" stroke="#000" stroke-opacity=".28"/>
+    <path d="M34 -11.5 Q 42 -8.5 50 0 Q 42 8.5 34 11.5 Q 37 0 34 -11.5 Z" fill="#ff5a36"/>
+    <rect x="-10" y="-14.2" width="6" height="28.4" fill="#ff5a36"/>
+    <circle cx="15" cy="0" r="6" fill="url(#glass)" stroke="#d9dee8" stroke-width="2.2"/>
+    <path d="M-34 -8.5 L -41 -10.5 L -41 10.5 L -34 8.5 Z" fill="#2a2e36"/>
+    <path d="M-28 -8.5 L 26 -10.3" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

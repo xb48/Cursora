@@ -1,0 +1,60 @@
+{
+  "name": "openwhip",
+  "productName": "Cursora",
+  "version": "2.18.0",
+  "description": "Your cursor, reimagined.",
+  "license": "MIT",
+  "main": "main.js",
+  "bin": {
+    "openwhip": "bin/openwhip.js",
+    "badclaude": "bin/openwhip.js"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "electron",
+    "tray",
+    "overlay",
+    "cli"
+  ],
+  "bugs": {
+    "url": "https://discord.gg/qat8yUcYqh"
+  },
+  "homepage": "https://github.com/xb48/Cursora",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xb48/Cursora.git"
+  },
+  "files": [
+    "main.js",
+    "preload.js",
+    "app",
+    "animations",
+    "icon",
+    "bin/openwhip.js",
+    "bin/badclaude.js",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node bin/openwhip.js",
+    "dev": "electron .",
+    "dist": "node scripts/build-win.js",
+    "icon": "electron scripts/make-icon.js",
+    "logo": "electron scripts/make-web-logo.js",
+    "pack": "npm pack"
+  },
+  "dependencies": {
+    "electron": "^33.4.11",
+    "electron-updater": "^6.3.9",
+    "koffi": "^2.9.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^25.1.8"
+  }
+}

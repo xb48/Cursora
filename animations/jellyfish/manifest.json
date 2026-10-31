@@ -1,0 +1,92 @@
+{
+  "id": "jellyfish",
+  "name": "Jellyfish",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A translucent moon jelly that swims after your pointer by pulsing its bell, trailing physics-driven tentacles and frilled arms. Whip the pointer through it and it flares with a bioluminescent sting.",
+  "category": "Nature",
+  "tags": [
+    "ocean",
+    "organic",
+    "glow",
+    "drift"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#d48cff",
+  "hints": [
+    "Move to lead it",
+    "Whip through it to sting",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "length",
+      "label": "Tentacle length",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.6,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "sting",
+      "label": "Sting speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 18,
+      "unit": "px",
+      "hint": "How fast the pointer must move through it"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "bell",
+      "label": "Bell",
+      "type": "color",
+      "group": "Look",
+      "default": "#8fe3ff"
+    },
+    {
+      "key": "glow",
+      "label": "Glow",
+      "type": "color",
+      "group": "Look",
+      "default": "#d48cff"
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

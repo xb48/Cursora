@@ -1,0 +1,91 @@
+{
+  "id": "stormcloud",
+  "name": "Stormcloud",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A rain cloud that drifts above your cursor and keeps raining. Shake it and it strikes a forked lightning bolt right onto the cursor.",
+  "category": "Nature",
+  "tags": [
+    "weather",
+    "rain",
+    "lightning",
+    "shake"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#bcd6ff",
+  "hints": [
+    "Move to steer it",
+    "Shake it to strike",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "rain",
+      "label": "Rain",
+      "type": "range",
+      "group": "Motion",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "key": "shake",
+      "label": "Shake threshold",
+      "type": "range",
+      "group": "Trigger",
+      "min": 6,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "px",
+      "hint": "How fast each shake must be"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "cloud",
+      "label": "Cloud",
+      "type": "color",
+      "group": "Look",
+      "default": "#8b95a7"
+    },
+    {
+      "key": "bolt",
+      "label": "Lightning",
+      "type": "color",
+      "group": "Look",
+      "default": "#bcd6ff"
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

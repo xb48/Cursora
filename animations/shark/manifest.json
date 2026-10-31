@@ -1,0 +1,99 @@
+{
+  "id": "shark",
+  "name": "Shark",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A top-down shark hunting the little bait fish at your cursor. It chases, then circles when it gets close. Charge straight at its head and it snaps its jaws.",
+  "category": "Animals",
+  "tags": [
+    "shark",
+    "ocean",
+    "predator",
+    "bite"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.png",
+  "accent": "#5b6f86",
+  "hints": [
+    "Move to lure it",
+    "Charge at its head to get bitten",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "agility",
+      "label": "Agility",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.4,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How sharply it turns"
+    },
+    {
+      "key": "bite",
+      "label": "Bite speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "px",
+      "hint": "How fast you must charge at its head"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "skin",
+      "label": "Skin",
+      "type": "color",
+      "group": "Look",
+      "default": "#5b6f86"
+    },
+    {
+      "key": "edge",
+      "label": "Pale edge",
+      "type": "color",
+      "group": "Look",
+      "default": "#c9d6e3"
+    },
+    {
+      "key": "bait",
+      "label": "Bait fish cursor",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

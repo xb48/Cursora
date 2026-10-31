@@ -1,0 +1,146 @@
+{
+  "id": "inferno",
+  "name": "Inferno",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A molten lash that cools to charcoal at the handle. It sheds embers as it moves and erupts into flame on every crack.",
+  "category": "Elemental",
+  "tags": [
+    "fire",
+    "embers",
+    "molten",
+    "heat"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#ff6a00",
+  "settings": [
+    {
+      "key": "segments",
+      "label": "Length (links)",
+      "type": "range",
+      "group": "Physics",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "key": "segmentLength",
+      "label": "Link length",
+      "type": "range",
+      "group": "Physics",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "key": "gravity",
+      "label": "Gravity",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "default": 1.2
+    },
+    {
+      "key": "damping",
+      "label": "Air drag",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.85,
+      "max": 0.995,
+      "step": 0.005,
+      "default": 0.96,
+      "hint": "Higher keeps momentum longer"
+    },
+    {
+      "key": "crackSpeed",
+      "label": "Crack threshold",
+      "type": "range",
+      "group": "Crack",
+      "min": 120,
+      "max": 700,
+      "step": 10,
+      "default": 340,
+      "hint": "Lower cracks more easily"
+    },
+    {
+      "key": "volume",
+      "label": "Crack volume",
+      "type": "range",
+      "group": "Crack",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "ember",
+      "label": "Ember color",
+      "type": "color",
+      "group": "Look",
+      "default": "#d42a0c"
+    },
+    {
+      "key": "flame",
+      "label": "Flame color",
+      "type": "color",
+      "group": "Look",
+      "default": "#ffd27a"
+    },
+    {
+      "key": "glow",
+      "label": "Glow",
+      "type": "range",
+      "group": "Look",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.75,
+      "unit": "%"
+    },
+    {
+      "key": "embers",
+      "label": "Ember trail",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "lineWidthHandle",
+      "label": "Handle thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 2,
+      "max": 16,
+      "step": 0.5,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "key": "lineWidthTip",
+      "label": "Tip thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 1,
+      "max": 12,
+      "step": 0.5,
+      "default": 4,
+      "unit": "px"
+    },
+    {
+      "key": "particles",
+      "label": "Crack effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Sparks and shockwaves on every crack"
+    }
+  ]
+}

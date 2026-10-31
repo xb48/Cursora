@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%"><stop offset="0" stop-color="#1b2238"/><stop offset="1" stop-color="#0a0c16"/></radialGradient>
+    <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>
+    <linearGradient id="lit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#dff4ff" stop-opacity=".18"/></linearGradient>
+    <linearGradient id="dim" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#dff4ff" stop-opacity=".45"/><stop offset="1" stop-color="#1d3550" stop-opacity=".45"/></linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <rect width="320" height="200" fill="url(#bg)"/>
+  <path d="M0 118 L150 100" stroke="url(#beam)" stroke-width="3" stroke-linecap="round"/>
+  <g opacity=".9" filter="url(#glow)">
+    <path d="M170 96 L320 58 L320 74 Z" fill="#ff3b5c"/>
+    <path d="M170 97 L320 74 L320 90 Z" fill="#ff9f1c"/>
+    <path d="M170 98 L320 90 L320 106 Z" fill="#ffe14d"/>
+    <path d="M170 99 L320 106 L320 122 Z" fill="#3ddc84"/>
+    <path d="M170 100 L320 122 L320 138 Z" fill="#30b8ff"/>
+    <path d="M170 101 L320 138 L320 154 Z" fill="#8a5cff"/>
+  </g>
+  <path d="M160 46 L206 132 L114 132 Z" fill="#dff4ff" fill-opacity=".14"/>
+  <path d="M160 46 L114 132 L160 118 Z" fill="url(#lit)"/>
+  <path d="M160 46 L160 118 L206 132 Z" fill="url(#dim)"/>
+  <path d="M160 46 L206 132 L114 132 Z" fill="none" stroke="#fff" stroke-opacity=".92" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M160 46 L160 118 M114 132 L160 118 L206 132" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>
+  <circle cx="160" cy="46" r="2.4" fill="#fff"/>
+</svg>

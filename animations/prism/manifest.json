@@ -1,0 +1,92 @@
+{
+  "id": "prism",
+  "name": "Prism",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A cut-glass prism whose tip is your pointer. Moving it splits light into a spectrum that fans out behind it, and a sharp flick fires a burst of coloured rays.",
+  "category": "Neon",
+  "tags": [
+    "light",
+    "glass",
+    "spectrum",
+    "optics"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#30b8ff",
+  "hints": [
+    "Move to bend the light",
+    "Flick to fire the spectrum",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "spread",
+      "label": "Spectrum spread",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.4,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How wide the colours fan apart"
+    },
+    {
+      "key": "flick",
+      "label": "Flick speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 34,
+      "unit": "px",
+      "hint": "How fast a flick must be to fire"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "glass",
+      "label": "Glass",
+      "type": "color",
+      "group": "Look",
+      "default": "#dff4ff"
+    },
+    {
+      "key": "trail",
+      "label": "Spectrum trail",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

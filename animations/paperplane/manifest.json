@@ -1,0 +1,98 @@
+{
+  "id": "paperplane",
+  "name": "Paper Plane",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "An origami dart that glides after your pointer, banking into its turns and drawing a contrail. Fly it round in tight loops and it pulls off a barrel roll.",
+  "category": "Objects",
+  "tags": [
+    "origami",
+    "paper",
+    "flight",
+    "glide"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#f4f1ea",
+  "hints": [
+    "Move to fly it",
+    "Loop tightly for a barrel roll",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "agility",
+      "label": "Agility",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How sharply it turns"
+    },
+    {
+      "key": "loop",
+      "label": "Loop tightness",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0.05,
+      "max": 0.12,
+      "step": 0.005,
+      "default": 0.07,
+      "hint": "How tight a turn counts toward a loop"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "paper",
+      "label": "Paper",
+      "type": "color",
+      "group": "Look",
+      "default": "#f4f1ea"
+    },
+    {
+      "key": "crease",
+      "label": "Folds",
+      "type": "color",
+      "group": "Look",
+      "default": "#bdb6a6"
+    },
+    {
+      "key": "trail",
+      "label": "Contrail",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

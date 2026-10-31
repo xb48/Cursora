@@ -1,0 +1,149 @@
+{
+  "id": "heritage",
+  "name": "Heritage",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A hand-braided leather stockwhip with brass hardware and a frayed cracker. It hangs a little heavier than the rest, and cracks kick up a puff of dust.",
+  "category": "Classic",
+  "tags": [
+    "leather",
+    "braided",
+    "realistic",
+    "western"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#d4a54a",
+  "settings": [
+    {
+      "key": "segments",
+      "label": "Length (links)",
+      "type": "range",
+      "group": "Physics",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "key": "segmentLength",
+      "label": "Link length",
+      "type": "range",
+      "group": "Physics",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "key": "gravity",
+      "label": "Gravity",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "default": 1.35
+    },
+    {
+      "key": "damping",
+      "label": "Air drag",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.85,
+      "max": 0.995,
+      "step": 0.005,
+      "default": 0.96,
+      "hint": "Higher keeps momentum longer"
+    },
+    {
+      "key": "crackSpeed",
+      "label": "Crack threshold",
+      "type": "range",
+      "group": "Crack",
+      "min": 120,
+      "max": 700,
+      "step": 10,
+      "default": 340,
+      "hint": "Lower cracks more easily"
+    },
+    {
+      "key": "volume",
+      "label": "Crack volume",
+      "type": "range",
+      "group": "Crack",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "leather",
+      "label": "Leather",
+      "type": "color",
+      "group": "Look",
+      "default": "#6b3f1d"
+    },
+    {
+      "key": "tipLeather",
+      "label": "Tip leather",
+      "type": "color",
+      "group": "Look",
+      "default": "#a8773f"
+    },
+    {
+      "key": "hardware",
+      "label": "Brass hardware",
+      "type": "color",
+      "group": "Look",
+      "default": "#d4a54a"
+    },
+    {
+      "key": "outlineColor",
+      "label": "Outline color",
+      "type": "color",
+      "group": "Look",
+      "default": "#f2e4cc"
+    },
+    {
+      "key": "braid",
+      "label": "Braided texture",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "lineWidthHandle",
+      "label": "Handle thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 2,
+      "max": 16,
+      "step": 0.5,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "key": "lineWidthTip",
+      "label": "Tip thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 1,
+      "max": 12,
+      "step": 0.5,
+      "default": 3.5,
+      "unit": "px"
+    },
+    {
+      "key": "particles",
+      "label": "Crack effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Sparks and shockwaves on every crack"
+    }
+  ]
+}

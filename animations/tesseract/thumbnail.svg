@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#0f1d33"/><stop offset=".6" stop-color="#090d18"/><stop offset="1" stop-color="#05070c"/></radialGradient>
+    <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3df5ff" stop-opacity=".35"/><stop offset="1" stop-color="#3df5ff" stop-opacity="0"/></linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#3df5ff" fill-opacity=".06"/></pattern>
+  </defs>
+  <rect width="320" height="200" fill="url(#bg)"/>
+  <path d="M154 176 L 104 112 L 216 112 L 166 176 Z" fill="url(#beam)"/>
+  <g fill="none" stroke-linecap="round" filter="url(#glow)">
+    <g stroke="#3df5ff" stroke-width="2.4">
+      <path d="M118 46 L 196 38 L 214 104 L 132 114 Z"/>
+      <path d="M118 46 L 132 114 M196 38 L 214 104"/>
+    </g>
+    <g stroke="#b46bff" stroke-width="1.6">
+      <path d="M146 64 L 182 60 L 190 92 L 152 96 Z"/>
+    </g>
+    <g stroke="#79c9ff" stroke-width="1.4" opacity=".9">
+      <path d="M118 46 L 146 64 M196 38 L 182 60 M214 104 L 190 92 M132 114 L 152 96"/>
+    </g>
+  </g>
+  <g fill="#fff"><circle cx="118" cy="46" r="2.2"/><circle cx="196" cy="38" r="2.2"/><circle cx="214" cy="104" r="2.2"/><circle cx="132" cy="114" r="2.2"/><circle cx="146" cy="64" r="1.8"/><circle cx="182" cy="60" r="1.8"/><circle cx="190" cy="92" r="1.8"/><circle cx="152" cy="96" r="1.8"/></g>
+  <rect x="100" y="30" width="124" height="90" fill="url(#scan)"/>
+  <g opacity=".55"><rect x="96" y="70" width="70" height="2" fill="#ff2b5e"/><rect x="170" y="82" width="56" height="1.5" fill="#2bfff1"/></g>
+  <ellipse cx="160" cy="178" rx="22" ry="6.5" fill="#0b1220" stroke="#3df5ff" stroke-width="2"/>
+  <circle cx="160" cy="177" r="2.6" fill="#fff"/>
+</svg>

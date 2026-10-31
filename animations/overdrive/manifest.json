@@ -1,0 +1,97 @@
+{
+  "id": "overdrive",
+  "name": "Overdrive",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A precision turbine with a live tachometer. Moving spins it up and the gauge fills; max it out and it vents in an overdrive burst.",
+  "category": "Tech",
+  "tags": [
+    "turbine",
+    "gauge",
+    "hud",
+    "charge"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#ff7a1a",
+  "hints": [
+    "Move to spin up",
+    "Max the gauge to fire",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "gain",
+      "label": "Rev sensitivity",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.3,
+      "max": 3,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "revLimit",
+      "label": "Overdrive point",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0.4,
+      "max": 1.6,
+      "step": 0.05,
+      "default": 1,
+      "hint": "Higher needs more spin to fire"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "accent",
+      "label": "Accent",
+      "type": "color",
+      "group": "Look",
+      "default": "#ff7a1a"
+    },
+    {
+      "key": "housing",
+      "label": "Housing",
+      "type": "color",
+      "group": "Look",
+      "default": "#2b2f38"
+    },
+    {
+      "key": "gauge",
+      "label": "Tachometer HUD",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "id": "octopus",
+  "name": "Octopus",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "An octopus floating on your cursor, with eight soft tentacles that curl and trail behind as you move. Shake it and it squirts a cloud of ink.",
+  "category": "Animals",
+  "tags": [
+    "octopus",
+    "ocean",
+    "tentacles",
+    "ink"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.png",
+  "accent": "#e0567a",
+  "hints": [
+    "Move to float",
+    "Shake it to squirt ink",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "wiggle",
+      "label": "Tentacle curl",
+      "type": "range",
+      "group": "Motion",
+      "min": 0,
+      "max": 2,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "shake",
+      "label": "Shake threshold",
+      "type": "range",
+      "group": "Trigger",
+      "min": 6,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "px",
+      "hint": "How fast each shake must be"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "skin",
+      "label": "Skin",
+      "type": "color",
+      "group": "Look",
+      "default": "#e0567a"
+    },
+    {
+      "key": "suckers",
+      "label": "Suckers",
+      "type": "color",
+      "group": "Look",
+      "default": "#ffd1dc"
+    },
+    {
+      "key": "ink",
+      "label": "Ink",
+      "type": "color",
+      "group": "Look",
+      "default": "#1d1430"
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

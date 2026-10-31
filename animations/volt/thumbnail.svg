@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <radialGradient id="g" cx="75%" cy="50%" r="70%"><stop offset="0" stop-color="#2f7bff" stop-opacity=".45"/><stop offset=".55" stop-color="#0b1d4d" stop-opacity=".4"/><stop offset="1" stop-color="#040814" stop-opacity="0"/></radialGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r=".8" fill="#5aa0ff" fill-opacity=".18"/></pattern>
+  </defs>
+  <rect width="320" height="200" fill="#040814"/>
+  <rect width="320" height="200" fill="url(#g)"/>
+  <rect width="320" height="200" fill="url(#dots)"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M84 164 C 104 124, 128 92, 166 76 S 240 52, 262 72 S 268 112, 240 100" stroke="#2f7bff" stroke-width="18" opacity=".7" filter="url(#blur)"/>
+    <path d="M84 164 C 104 124, 128 92, 166 76 S 240 52, 262 72 S 268 112, 240 100" stroke="#a8e6ff" stroke-width="5"/>
+    <path d="M84 164 C 104 124, 128 92, 166 76 S 240 52, 262 72 S 268 112, 240 100" stroke="#fff" stroke-width="1.6"/>
+    <path d="M96 140 L 112 118 L 118 124 L 136 98 L 146 104 L 170 80 L 186 82 L 210 64 L 230 66 L 252 64 L 266 82 L 258 98" stroke="#d9f3ff" stroke-width="1" opacity=".7"/>
+    <path d="M70 182 L 88 158" stroke="#0a1124" stroke-width="15"/>
+    <path d="M81 167 l 8 6" stroke="#a8e6ff" stroke-width="2"/>
+    <circle cx="70" cy="182" r="7" fill="#2f7bff"/>
+    <g filter="url(#blur)" opacity=".9"><circle cx="240" cy="100" r="10" fill="#2f7bff"/></g>
+    <g stroke="#2f7bff" stroke-width="4" opacity=".45">
+      <path d="M240 100 L 262 110 L 256 118 L 284 132 L 280 140 L 300 150"/>
+      <path d="M240 100 L 226 122 L 232 128 L 214 150"/>
+      <path d="M240 100 L 262 90 L 270 96 L 292 82"/>
+    </g>
+    <g stroke="#fff" stroke-width="1.8">
+      <path d="M240 100 L 262 110 L 256 118 L 284 132 L 280 140 L 300 150"/>
+      <path d="M240 100 L 226 122 L 232 128 L 214 150"/>
+      <path d="M240 100 L 262 90 L 270 96 L 292 82"/>
+      <path d="M256 118 L 270 132 L 266 142"/>
+    </g>
+  </g>
+</svg>

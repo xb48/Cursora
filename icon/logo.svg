@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bfe6f9"/>
+      <stop offset=".5" stop-color="#89cff0"/>
+      <stop offset="1" stop-color="#55b1e0"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".28"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="976" height="976" rx="232" fill="url(#tile)"/>
+  <rect x="24" y="24" width="976" height="976" rx="232" fill="url(#sheen)"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round">
+    <path d="M640 760 Q720 820 820 800" stroke-width="44" stroke-opacity=".9"/>
+    <path d="M700 650 Q790 690 860 660" stroke-width="34" stroke-opacity=".6"/>
+  </g>
+  <path d="M0 0 L0 17 L4.5 13 L7.5 20 L10.5 18.8 L7.5 12 L13 12 Z" transform="translate(304 232) scale(27)" fill="#1b6c99" fill-opacity=".3" stroke="#1b6c99" stroke-opacity=".3" stroke-width=".8" stroke-linejoin="round"/>
+  <path d="M0 0 L0 17 L4.5 13 L7.5 20 L10.5 18.8 L7.5 12 L13 12 Z" transform="translate(290 210) scale(27)" fill="#fff" stroke="#fff" stroke-width=".8" stroke-linejoin="round"/>
+</svg>

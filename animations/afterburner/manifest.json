@@ -1,0 +1,105 @@
+{
+  "id": "afterburner",
+  "name": "Afterburner",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A sleek rocket that flies your cursor path, nose first, trailing flame and smoke. Dash hard to light the afterburner.",
+  "category": "Objects",
+  "tags": [
+    "rocket",
+    "flight",
+    "exhaust",
+    "boost"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#ff5a36",
+  "hints": [
+    "Move to fly",
+    "Dash to ignite",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "agility",
+      "label": "Agility",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.05,
+      "max": 0.3,
+      "step": 0.005,
+      "default": 0.12
+    },
+    {
+      "key": "boost",
+      "label": "Ignition speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 12,
+      "max": 70,
+      "step": 1,
+      "default": 30,
+      "unit": "px",
+      "hint": "Dash speed needed to ignite"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "hull",
+      "label": "Hull",
+      "type": "color",
+      "group": "Look",
+      "default": "#eef1f6"
+    },
+    {
+      "key": "accent",
+      "label": "Livery",
+      "type": "color",
+      "group": "Look",
+      "default": "#ff5a36"
+    },
+    {
+      "key": "flame",
+      "label": "Flame",
+      "type": "color",
+      "group": "Look",
+      "default": "#ffb347"
+    },
+    {
+      "key": "smoke",
+      "label": "Smoke trail",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

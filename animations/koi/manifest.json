@@ -1,0 +1,106 @@
+{
+  "id": "koi",
+  "name": "Koi",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A kohaku koi with a living, swimming spine, flapping fins and a fanned tail. It chases your cursor, and when it catches it at speed it breaks the surface in a splash.",
+  "category": "Nature",
+  "tags": [
+    "fish",
+    "pond",
+    "organic",
+    "chase"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#ff5a1f",
+  "hints": [
+    "Move to lead it",
+    "Let it catch you at speed",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "agility",
+      "label": "Agility",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.4,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How sharply it turns"
+    },
+    {
+      "key": "catchSpeed",
+      "label": "Catch speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 4,
+      "max": 12,
+      "step": 0.5,
+      "default": 7,
+      "unit": "px",
+      "hint": "How fast it must be swimming when it catches you"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "body",
+      "label": "Body",
+      "type": "color",
+      "group": "Look",
+      "default": "#f6f2ea"
+    },
+    {
+      "key": "patch",
+      "label": "Markings",
+      "type": "color",
+      "group": "Look",
+      "default": "#ff5a1f"
+    },
+    {
+      "key": "fin",
+      "label": "Fins",
+      "type": "color",
+      "group": "Look",
+      "default": "#ffd9c2"
+    },
+    {
+      "key": "ripples",
+      "label": "Ripples",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

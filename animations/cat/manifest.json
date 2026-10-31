@@ -1,0 +1,94 @@
+{
+  "id": "cat",
+  "name": "Whiskers",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "An orange tabby that sits beside your cursor and sees it as a laser dot. Wiggle the dot and it gets excited: pupils widen, ears flatten, tail whips. Then it pounces, swats and leaves claw marks.",
+  "category": "Animals",
+  "tags": [
+    "cat",
+    "pet",
+    "laser",
+    "pounce"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.png",
+  "accent": "#f2a65a",
+  "hints": [
+    "Wiggle the dot",
+    "Excite it into a pounce",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "playful",
+      "label": "Playfulness",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0.3,
+      "max": 3,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How quickly wiggles excite it"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "fur",
+      "label": "Fur",
+      "type": "color",
+      "group": "Look",
+      "default": "#e8954d"
+    },
+    {
+      "key": "stripes",
+      "label": "Stripes",
+      "type": "color",
+      "group": "Look",
+      "default": "#a85a22"
+    },
+    {
+      "key": "eyes",
+      "label": "Eyes",
+      "type": "color",
+      "group": "Look",
+      "default": "#a8d672"
+    },
+    {
+      "key": "laser",
+      "label": "Laser dot cursor",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

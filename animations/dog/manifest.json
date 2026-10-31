@@ -1,0 +1,112 @@
+{
+  "id": "dog",
+  "name": "Biscuit",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A corgi who plays fetch. Your cursor holds a tennis ball: flick to throw it. Biscuit runs it down, carries it back, drops it at your cursor and barks.",
+  "category": "Animals",
+  "tags": [
+    "dog",
+    "corgi",
+    "fetch",
+    "pet"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.png",
+  "accent": "#e8913a",
+  "hints": [
+    "Flick to throw the ball",
+    "It barks when it brings it back",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "agility",
+      "label": "Agility",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.4,
+      "max": 2,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "throwSpeed",
+      "label": "Throw speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "default": 26,
+      "unit": "px",
+      "hint": "Flick speed that throws the ball"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "fur",
+      "label": "Fur",
+      "type": "color",
+      "group": "Look",
+      "default": "#d9822b"
+    },
+    {
+      "key": "white",
+      "label": "White markings",
+      "type": "color",
+      "group": "Look",
+      "default": "#fff6ea"
+    },
+    {
+      "key": "ball",
+      "label": "Ball",
+      "type": "color",
+      "group": "Look",
+      "default": "#d8f03a"
+    },
+    {
+      "key": "collar",
+      "label": "Collar",
+      "type": "color",
+      "group": "Look",
+      "default": "#d63b3b"
+    },
+    {
+      "key": "bubble",
+      "label": "WOOF bubble",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

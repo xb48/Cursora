@@ -1,0 +1,101 @@
+{
+  "id": "frog",
+  "name": "Frog",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A realistic frog, shaded in 3D and seen from above, that hops after your pointer: it turns to face it, crouches, launches with its legs stretched out and lands hands-first. Between hops it breathes, blinks and watches you; zip the pointer past its nose and it snaps its tongue out to catch it.",
+  "category": "Animals",
+  "tags": [
+    "frog",
+    "realistic",
+    "3d",
+    "hop",
+    "chase"
+  ],
+  "entry": "overlay.html",
+  "cursor": "follow",
+  "thumbnail": "thumbnail.png",
+  "accent": "#7fa34a",
+  "hints": [
+    "Move to lead it",
+    "Zip past its nose to get snapped",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "hop",
+      "label": "Hop distance",
+      "type": "range",
+      "group": "Motion",
+      "min": 80,
+      "max": 260,
+      "step": 5,
+      "default": 150,
+      "unit": "px",
+      "hint": "The longest single jump"
+    },
+    {
+      "key": "snap",
+      "label": "Snap speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px",
+      "hint": "How fast the pointer must zip past its nose"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "species",
+      "label": "Species",
+      "type": "select",
+      "group": "Look",
+      "default": "leopard",
+      "options": [
+        {
+          "value": "leopard",
+          "label": "Leopard frog"
+        },
+        {
+          "value": "bullfrog",
+          "label": "Bullfrog"
+        },
+        {
+          "value": "tree",
+          "label": "Tree frog"
+        }
+      ]
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "A little splash when the tongue lands"
+    }
+  ]
+}

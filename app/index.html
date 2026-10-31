@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; img-src 'self' file: data:; frame-src file:; media-src file:">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursora</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <nav class="rail" aria-label="Main">
+    <div class="rail-brand" title="Cursora">
+      <img src="../icon/logo.svg" alt="Cursora" draggable="false">
+    </div>
+    <div class="rail-group">
+      <button class="rail-btn" data-action="nav" data-page="library" data-tip="Animations"><span data-icon="grid"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="studio" data-tip="Studio"><span data-icon="sliders"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="cursors" data-tip="Cursors"><span data-icon="mouse"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="crosshairs" data-tip="Crosshairs"><span data-icon="target"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="xeditor" data-tip="Crosshair Editor"><span data-icon="pencil"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="hotkeys" data-tip="Hotkeys"><span data-icon="keyboard"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="history" data-tip="History"><span data-icon="clock"></span></button>
+    </div>
+    <div class="rail-spacer"></div>
+    <div class="rail-group">
+      <button class="rail-btn" data-action="external" data-url="https://github.com/xb48" data-tip="GitHub"><span data-icon="github"></span></button>
+      <button class="rail-btn" data-action="external" data-url="https://discord.gg/qat8yUcYqh" data-tip="Discord Server"><span data-icon="discord"></span></button>
+      <span class="rail-sep"></span>
+      <button class="rail-btn" data-action="nav" data-page="help" data-tip="Help"><span data-icon="help"></span></button>
+      <button class="rail-btn" data-action="nav" data-page="settings" data-tip="Settings"><span data-icon="gear"></span></button>
+    </div>
+  </nav>
+
+  <header class="topbar">
+    <div class="tb-title">
+      <span class="tb-brand">Curs<b>ora</b></span>
+      <span class="tb-slash">/</span>
+      <span id="pageTitle">Animations</span>
+    </div>
+    <div class="tb-spacer"></div>
+    <div class="tb-actions">
+      <button class="update-chip" id="updateChip" data-action="update-install" hidden><span data-icon="download"></span><span id="updateChipLabel">Restart to update</span></button>
+      <div class="crack-meter" title="Total cracks"><span data-icon="flame"></span><b id="crackTotal">0</b></div>
+      <div class="active-select">
+        <button class="select-btn" data-action="active-menu" title="Active animation">
+          <span class="select-thumb" id="activeThumb"></span>
+          <span class="select-text"><small>Active</small><span id="activeName">—</span></span>
+          <span data-icon="chevron-down"></span>
+        </button>
+        <div class="menu" id="activeMenu" hidden></div>
+      </div>
+      <button class="power" id="summonPill" data-action="summon" title="Summon / drop">
+        <span class="power-track"><span class="power-knob"><span data-icon="zap"></span></span></span>
+        <span class="power-label" id="summonLabel">Off</span>
+      </button>
+    </div>
+    <div class="win-controls">
+      <button data-action="win" data-win="minimize" title="Minimize"><span data-icon="win-min"></span></button>
+      <button data-action="win" data-win="maximize" title="Maximize"><span class="ic-max" data-icon="win-max"></span><span class="ic-restore" data-icon="win-restore"></span></button>
+      <button class="win-close" data-action="win" data-win="close" title="Close"><span data-icon="x"></span></button>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <div id="toasts"></div>
+  <div id="modal-root"></div>
+
+  <script src="icons.js"></script>
+  <script src="../animations/_engine/frog3d.js"></script>
+  <script src="cursors.js"></script>
+  <script src="crosshairs.js"></script>
+  <script src="ui-sounds.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

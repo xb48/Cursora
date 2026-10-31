@@ -1,0 +1,13 @@
+node_modules/
+dist/
+out/
+*.tgz
+
+# Promo video: large media lives in releases, not in the repository
+promo/
+
+# Logs and OS files
+*.log
+Thumbs.db
+Desktop.ini
+.DS_Store

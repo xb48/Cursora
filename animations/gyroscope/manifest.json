@@ -1,0 +1,88 @@
+{
+  "id": "gyroscope",
+  "name": "Gyroscope",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A precision gyroscope pivoting on your pointer. Three nested gimbal rings swing with your motion in true 3D around a spinning rotor; jolt it against its momentum and the rings snap and ring out.",
+  "category": "Tech",
+  "tags": [
+    "3d",
+    "precision",
+    "mechanical",
+    "metal"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#36d1ff",
+  "hints": [
+    "Move to swing the gimbals",
+    "Jolt it back hard to snap it",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "jolt",
+      "label": "Jolt speed",
+      "type": "range",
+      "group": "Trigger",
+      "min": 18,
+      "max": 60,
+      "step": 1,
+      "default": 30,
+      "unit": "px",
+      "hint": "How hard the reversing move must be"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "metal",
+      "label": "Rings",
+      "type": "color",
+      "group": "Look",
+      "default": "#c9ced6"
+    },
+    {
+      "key": "rotor",
+      "label": "Rotor",
+      "type": "color",
+      "group": "Look",
+      "default": "#ff7a1a"
+    },
+    {
+      "key": "accent",
+      "label": "Accent",
+      "type": "color",
+      "group": "Look",
+      "default": "#36d1ff"
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

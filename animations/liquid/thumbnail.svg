@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#241a44"/><stop offset=".65" stop-color="#110d1f"/><stop offset="1" stop-color="#09070f"/></radialGradient>
+    <radialGradient id="gel" cx="36%" cy="30%" r="80%"><stop offset="0" stop-color="#d9ceff"/><stop offset=".35" stop-color="#9478ff"/><stop offset=".8" stop-color="#7c5cff"/><stop offset="1" stop-color="#3f2c99"/></radialGradient>
+    <radialGradient id="drop" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#e6ddff"/><stop offset=".5" stop-color="#8a6dff"/><stop offset="1" stop-color="#4b35b3"/></radialGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#08041a" flood-opacity=".6"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <rect width="320" height="200" fill="url(#bg)"/>
+  <circle cx="160" cy="96" r="70" fill="#7c5cff" opacity=".25" filter="url(#soft)"/>
+  <path d="M160 40 C 196 38, 214 64, 212 94 C 210 126, 190 150, 158 152 C 124 154, 104 132, 106 98 C 108 66, 126 42, 160 40 Z" fill="url(#gel)" filter="url(#sh)"/>
+  <path d="M160 40 C 196 38, 214 64, 212 94 C 210 126, 190 150, 158 152 C 124 154, 104 132, 106 98 C 108 66, 126 42, 160 40 Z" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+  <path d="M112 112 C 118 140, 140 150, 160 150 C 186 150, 204 136, 208 112" fill="none" stroke="#1b0f4d" stroke-opacity=".3" stroke-width="12" stroke-linecap="round"/>
+  <ellipse cx="138" cy="66" rx="17" ry="8" fill="#fff" opacity=".78" transform="rotate(-30 138 66)"/>
+  <circle cx="164" cy="56" r="3.4" fill="#fff" opacity=".9"/>
+  <g>
+    <circle cx="236" cy="70" r="8" fill="url(#drop)"/><circle cx="233" cy="67" r="2.2" fill="#fff" opacity=".8"/>
+    <circle cx="256" cy="98" r="5.5" fill="url(#drop)"/><circle cx="254" cy="96" r="1.5" fill="#fff" opacity=".8"/>
+    <circle cx="246" cy="128" r="4" fill="url(#drop)"/>
+    <circle cx="80" cy="76" r="6" fill="url(#drop)"/><circle cx="78" cy="74" r="1.7" fill="#fff" opacity=".8"/>
+    <circle cx="70" cy="112" r="4" fill="url(#drop)"/>
+  </g>
+</svg>

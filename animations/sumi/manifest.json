@@ -1,0 +1,150 @@
+{
+  "id": "sumi",
+  "name": "Sumi",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A bamboo calligraphy brush. Slow strokes are full and wet, fast ones break into dry flying-white streaks, and a hard slash splatters ink and stamps a red seal. The ink thins away on its own.",
+  "category": "Art",
+  "tags": [
+    "calligraphy",
+    "ink",
+    "brush",
+    "drawing"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#c8102e",
+  "hints": [
+    "Move to paint",
+    "Slash fast to splatter",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "weight",
+      "label": "Stroke weight",
+      "type": "range",
+      "group": "Motion",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "key": "persist",
+      "label": "Ink lasts",
+      "type": "range",
+      "group": "Motion",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "default": 3,
+      "unit": "s"
+    },
+    {
+      "key": "splash",
+      "label": "Splash threshold",
+      "type": "range",
+      "group": "Trigger",
+      "min": 15,
+      "max": 70,
+      "step": 1,
+      "default": 30,
+      "unit": "px",
+      "hint": "Brush speed that splatters"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "ink",
+      "label": "Ink",
+      "type": "color",
+      "group": "Look",
+      "default": "#141210"
+    },
+    {
+      "key": "halo",
+      "label": "Paper backing",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Keeps ink readable on dark windows"
+    },
+    {
+      "key": "paper",
+      "label": "Paper",
+      "type": "color",
+      "group": "Look",
+      "default": "#f3ecdf"
+    },
+    {
+      "key": "seal",
+      "label": "Red seal",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "sealChar",
+      "label": "Seal",
+      "type": "select",
+      "group": "Look",
+      "default": "速",
+      "options": [
+        {
+          "value": "速",
+          "label": "速 · speed"
+        },
+        {
+          "value": "急",
+          "label": "急 · hurry"
+        },
+        {
+          "value": "進",
+          "label": "進 · advance"
+        },
+        {
+          "value": "力",
+          "label": "力 · power"
+        }
+      ]
+    },
+    {
+      "key": "sealColor",
+      "label": "Seal color",
+      "type": "color",
+      "group": "Look",
+      "default": "#c8102e"
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

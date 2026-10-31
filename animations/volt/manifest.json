@@ -1,0 +1,146 @@
+{
+  "id": "volt",
+  "name": "Volt",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A high-voltage cable wrapped in flickering filaments. Every crack throws forked lightning out from the tip.",
+  "category": "Elemental",
+  "tags": [
+    "electric",
+    "lightning",
+    "glow",
+    "energy"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#2f7bff",
+  "settings": [
+    {
+      "key": "segments",
+      "label": "Length (links)",
+      "type": "range",
+      "group": "Physics",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "key": "segmentLength",
+      "label": "Link length",
+      "type": "range",
+      "group": "Physics",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "key": "gravity",
+      "label": "Gravity",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.05,
+      "default": 1.2
+    },
+    {
+      "key": "damping",
+      "label": "Air drag",
+      "type": "range",
+      "group": "Physics",
+      "min": 0.85,
+      "max": 0.995,
+      "step": 0.005,
+      "default": 0.96,
+      "hint": "Higher keeps momentum longer"
+    },
+    {
+      "key": "crackSpeed",
+      "label": "Crack threshold",
+      "type": "range",
+      "group": "Crack",
+      "min": 120,
+      "max": 700,
+      "step": 10,
+      "default": 340,
+      "hint": "Lower cracks more easily"
+    },
+    {
+      "key": "volume",
+      "label": "Crack volume",
+      "type": "range",
+      "group": "Crack",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "core",
+      "label": "Core color",
+      "type": "color",
+      "group": "Look",
+      "default": "#a8e6ff"
+    },
+    {
+      "key": "glowColor",
+      "label": "Glow color",
+      "type": "color",
+      "group": "Look",
+      "default": "#2f7bff"
+    },
+    {
+      "key": "glow",
+      "label": "Glow",
+      "type": "range",
+      "group": "Look",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "%"
+    },
+    {
+      "key": "filaments",
+      "label": "Electric filaments",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "lineWidthHandle",
+      "label": "Handle thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 2,
+      "max": 16,
+      "step": 0.5,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "key": "lineWidthTip",
+      "label": "Tip thickness",
+      "type": "range",
+      "group": "Look",
+      "min": 1,
+      "max": 12,
+      "step": 0.5,
+      "default": 3,
+      "unit": "px"
+    },
+    {
+      "key": "particles",
+      "label": "Crack effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Sparks and shockwaves on every crack"
+    }
+  ]
+}

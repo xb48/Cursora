@@ -1,0 +1,113 @@
+{
+  "id": "gavel",
+  "name": "The Gavel",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A walnut-and-brass gavel that swings from your hand like a real pendulum. Swing it hard enough and it slams down with a thud and an ORDER! stamp.",
+  "category": "Objects",
+  "tags": [
+    "gavel",
+    "pendulum",
+    "courtroom",
+    "stamp"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#d1a64a",
+  "hints": [
+    "Move to wield",
+    "Swing hard to slam",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "swing",
+      "label": "Swing response",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.05,
+      "default": 1,
+      "hint": "How strongly hand movement swings the head"
+    },
+    {
+      "key": "slam",
+      "label": "Slam threshold",
+      "type": "range",
+      "group": "Trigger",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 22,
+      "unit": "px",
+      "hint": "Lower slams more easily"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "wood",
+      "label": "Wood",
+      "type": "color",
+      "group": "Look",
+      "default": "#6a4026"
+    },
+    {
+      "key": "brass",
+      "label": "Brass",
+      "type": "color",
+      "group": "Look",
+      "default": "#d1a64a"
+    },
+    {
+      "key": "stamp",
+      "label": "Stamp text",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "stampText",
+      "label": "Stamp",
+      "type": "select",
+      "group": "Look",
+      "default": "ORDER!",
+      "options": [
+        "ORDER!",
+        "FASTER!",
+        "SUSTAINED",
+        "GUILTY",
+        "GO!"
+      ]
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

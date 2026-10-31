@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10263f"/><stop offset="1" stop-color="#050b16"/></linearGradient>
+    <radialGradient id="bell" cx="50%" cy="80%" r="80%"><stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset=".4" stop-color="#8fe3ff" stop-opacity=".42"/><stop offset="1" stop-color="#8fe3ff" stop-opacity=".1"/></radialGradient>
+    <radialGradient id="lobe"><stop offset="0" stop-color="#d48cff" stop-opacity=".75"/><stop offset="1" stop-color="#d48cff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="45%" r="50%"><stop offset="0" stop-color="#d48cff" stop-opacity=".28"/><stop offset="1" stop-color="#d48cff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="tent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fe3ff" stop-opacity=".75"/><stop offset="1" stop-color="#d48cff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="320" height="200" fill="url(#sea)"/>
+  <circle cx="160" cy="86" r="90" fill="url(#halo)"/>
+  <g fill="none" stroke="url(#tent)" stroke-width="1.4" stroke-linecap="round">
+    <path d="M126 88 C 120 120, 132 150, 122 196"/><path d="M134 90 C 130 124, 142 150, 136 196"/>
+    <path d="M144 92 C 142 126, 152 156, 148 196"/><path d="M176 92 C 178 126, 168 156, 172 196"/>
+    <path d="M186 90 C 190 124, 178 150, 184 196"/><path d="M194 88 C 200 120, 188 150, 198 196"/>
+    <path d="M118 86 C 108 116, 120 146, 106 190"/><path d="M202 86 C 212 116, 200 146, 214 190"/>
+  </g>
+  <g fill="#d48cff" fill-opacity=".38">
+    <path d="M152 92 C 146 112, 158 128, 150 150 C 160 132, 154 112, 160 92 Z"/>
+    <path d="M168 92 C 174 112, 162 128, 170 150 C 160 132, 166 112, 160 92 Z"/>
+  </g>
+  <path d="M116 86 C 116 56, 136 38, 160 38 C 184 38, 204 56, 204 86 Q 198.5 82, 193 86 Q 187.5 82, 182 86 Q 176.5 82, 171 86 Q 165.5 82, 160 86 Q 154.5 82, 149 86 Q 143.5 82, 138 86 Q 132.5 82, 127 86 Q 121.5 82, 116 86 Z" fill="url(#bell)" stroke="#c7f1ff" stroke-opacity=".7" stroke-width="1.4"/>
+  <circle cx="138" cy="66" r="9" fill="url(#lobe)"/><circle cx="153" cy="62" r="9" fill="url(#lobe)"/>
+  <circle cx="167" cy="62" r="9" fill="url(#lobe)"/><circle cx="182" cy="66" r="9" fill="url(#lobe)"/>
+  <path d="M132 50 C 142 43, 156 41, 168 42" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#e9c7ff">
+    <circle cx="116" cy="86" r="1.6"/><circle cx="138" cy="86" r="1.6"/><circle cx="160" cy="86" r="1.6"/>
+    <circle cx="182" cy="86" r="1.6"/><circle cx="204" cy="86" r="1.6"/>
+  </g>
+</svg>

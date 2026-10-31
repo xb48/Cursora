@@ -1,0 +1,97 @@
+{
+  "id": "tesseract",
+  "name": "Tesseract",
+  "version": "1.0.0",
+  "author": "Cursora",
+  "description": "A holographic 4D hypercube projected live above your cursor. Movement spins it through the fourth dimension, and spinning it hard enough makes the hologram glitch.",
+  "category": "Tech",
+  "tags": [
+    "4d",
+    "hologram",
+    "geometry",
+    "glitch"
+  ],
+  "entry": "overlay.html",
+  "cursor": "replace",
+  "thumbnail": "thumbnail.svg",
+  "accent": "#3df5ff",
+  "hints": [
+    "Move to spin it in 4D",
+    "Spin hard to glitch",
+    "Hotkey toggles it on and off"
+  ],
+  "settings": [
+    {
+      "key": "size",
+      "label": "Size",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.6,
+      "max": 1.8,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "gain",
+      "label": "Spin response",
+      "type": "range",
+      "group": "Motion",
+      "min": 0.3,
+      "max": 3,
+      "step": 0.05,
+      "default": 1
+    },
+    {
+      "key": "spin",
+      "label": "Glitch threshold",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0.12,
+      "max": 0.6,
+      "step": 0.01,
+      "default": 0.26,
+      "hint": "Lower glitches more easily"
+    },
+    {
+      "key": "volume",
+      "label": "Volume",
+      "type": "range",
+      "group": "Trigger",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "default": 1,
+      "unit": "%"
+    },
+    {
+      "key": "colorA",
+      "label": "Hologram color",
+      "type": "color",
+      "group": "Look",
+      "default": "#3df5ff"
+    },
+    {
+      "key": "colorB",
+      "label": "Depth color",
+      "type": "color",
+      "group": "Look",
+      "default": "#b46bff"
+    },
+    {
+      "key": "projector",
+      "label": "Projector beam",
+      "type": "toggle",
+      "group": "Look",
+      "default": true
+    },
+    {
+      "key": "particles",
+      "label": "Trigger effects",
+      "type": "toggle",
+      "group": "Look",
+      "default": true,
+      "hint": "Shockwaves and particles when it fires"
+    }
+  ]
+}

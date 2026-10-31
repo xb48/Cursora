@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f0e3"/><stop offset="1" stop-color="#e6dcc6"/></linearGradient>
+    <linearGradient id="bamboo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9d49c"/><stop offset=".45" stop-color="#c8a865"/><stop offset="1" stop-color="#7d6232"/></linearGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .4  0 0 0 0 .32  0 0 0 0 .2  0 0 0 .08 0"/></filter>
+    <filter id="sh" x="-20%" y="-50%" width="140%" height="200%"><feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="320" height="200" fill="url(#paper)"/>
+  <rect width="320" height="200" filter="url(#grain)"/>
+  <path d="M46 132 C 70 92, 104 74, 140 78 C 168 81, 178 102, 204 104 C 222 106, 236 96, 248 86" fill="none" stroke="#141210" stroke-width="16" stroke-linecap="round"/>
+  <g fill="none" stroke="#141210" stroke-width="3" stroke-linecap="round">
+    <path d="M248 82 C 262 72, 274 66, 290 62"/><path d="M250 88 C 264 79, 276 74, 292 71"/><path d="M247 93 C 260 86, 272 82, 286 80"/>
+  </g>
+  <path d="M60 150 C 92 150, 120 140, 150 142" fill="none" stroke="#141210" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+  <path d="M200 120 c 10 -8 22 -6 26 4 c 4 10 -6 18 -16 16 c -10 -2 -18 -12 -10 -20 z" fill="#141210"/>
+  <g fill="#141210"><circle cx="236" cy="132" r="4"/><circle cx="246" cy="140" r="2.6"/><circle cx="254" cy="146" r="1.8"/><circle cx="260" cy="151" r="1.2"/></g>
+  <g transform="translate(266 160) rotate(-8)">
+    <rect x="-17" y="-17" width="34" height="34" rx="4" fill="#c8102e"/>
+    <rect x="-13.5" y="-13.5" width="27" height="27" fill="none" stroke="#fff6ee" stroke-opacity=".55" stroke-width="1.2"/>
+    <text x="0" y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="Yu Mincho, SimSun, MS Mincho, Microsoft YaHei, serif" font-weight="600" font-size="21" fill="#fff6ee">速</text>
+  </g>
+  <g transform="translate(72 64) rotate(-50)" filter="url(#sh)">
+    <path d="M0 0 Q 10 -4 20 -3.4 L 20 3.4 Q 10 4 0 0 Z" fill="#141210"/>
+    <rect x="20" y="-3.8" width="7" height="7.6" fill="#ece3cf"/>
+    <rect x="27" y="-3" width="84" height="6" rx="3" fill="url(#bamboo)"/>
+    <path d="M58 -3 V 3 M88 -3 V 3" stroke="#46321a" stroke-opacity=".55" stroke-width="1.4"/>
+    <ellipse cx="115" cy="0" rx="4.5" ry="3" fill="none" stroke="#c8102e" stroke-width="1.6"/>
+  </g>
+</svg>
