@@ -1,0 +1,2 @@
+# Cursora
+Your cursor, reimagined.
