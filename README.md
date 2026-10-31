@@ -136,11 +136,19 @@ npm run dist       # build the installer and the portable app into dist/
 
 ### Publishing a release
 
-1. Raise `version` in `package.json` and run `npm run dist`.
-2. Create a release on this repository tagged `v<version>` (for example `v2.18.1`). The release text becomes the What's New notes.
-3. Attach `Cursora-Setup-<version>.exe`, `Cursora-Setup-<version>.exe.blockmap` and `latest.yml` from `dist/`, plus `Cursora-Portable-<version>.exe` for people who don't want to install. Publish it as a full release, not a draft or a pre-release.
+Releases are built and published automatically by GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)):
 
-Installed copies find it, download it in the background and install it on their next restart.
+1. Raise `version` in `package.json` (and `npm install` to update the lock file).
+2. Write the notes for the new version in [`RELEASE_NOTES.md`](RELEASE_NOTES.md). They become the release description and the in-app What's New.
+3. Commit, tag and push:
+
+   ```bash
+   git commit -am "Cursora 2.18.1"
+   git tag v2.18.1
+   git push origin main v2.18.1
+   ```
+
+The workflow checks that the tag matches `package.json` and builds the installer, the portable app, the blockmap and `latest.yml` on Windows. It uploads them to a draft release, confirms every file arrived, then publishes the release. Installed copies find it, download it in the background and install it on their next restart.
 
 ## Project structure
 

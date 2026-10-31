@@ -2,11 +2,12 @@
 //   Cursora-Setup-<version>.exe     installer (Start menu + desktop shortcuts, uninstaller)
 //   Cursora-Portable-<version>.exe  single-file app, no install needed
 //   win-unpacked/Cursora.exe        the unpacked app folder
-//   latest.yml                      update metadata (version, file, SHA-512)
+//   latest.yml                      update metadata (version, file, SHA-512, release notes)
 //
-// Publishing a release: create a GitHub release tagged v<version> on xb48/Cursora
-// and attach Cursora-Setup-<version>.exe, its .blockmap and latest.yml. Installed
-// copies find it, download it in the background and install it on restart.
+// Releases are published by GitHub Actions (.github/workflows/release.yml) when a
+// v<version> tag is pushed: it runs this script with CURSORA_PUBLISH=1, which uploads
+// everything to a draft release; the workflow then publishes it with RELEASE_NOTES.md.
+// Installed copies find it, download it in the background and install it on restart.
 //
 // The app is staged into out/app with only what it needs at runtime: no Electron
 // package, no dev tooling, and koffi trimmed to its Windows x64 binary (it ships
@@ -70,7 +71,7 @@ const icon = path.join(ROOT, 'icon', 'app.ico');
 
 build({
   projectDir: ROOT,
-  publish: 'never',                        // releases are uploaded by hand (see the top of this file)
+  publish: process.env.CURSORA_PUBLISH === '1' ? 'always' : 'never', // only the release workflow uploads
   targets: Platform.WINDOWS.createTarget(['nsis', 'portable'], Arch.x64),
   config: {
     appId: 'com.cursora.app',             // matches APP_ID in main.js
@@ -97,6 +98,8 @@ build({
     portable: { artifactName: 'Cursora-Portable-${version}.${ext}' },
     // Where installed copies look for updates (written into the app as app-update.yml).
     publish: [{ provider: 'github', owner: 'xb48', repo: 'Cursora', releaseType: 'release' }],
+    // The notes shown in What's New, written into latest.yml.
+    releaseInfo: { releaseNotesFile: path.join(ROOT, 'RELEASE_NOTES.md') },
   },
 }).then(files => {
   console.log('\nBuilt:');

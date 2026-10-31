@@ -992,7 +992,7 @@ const updateState = { status: 'idle', version: null, percent: 0, error: null };
 const updatesSupported = () => process.platform === 'win32' && app.isPackaged && !process.env.PORTABLE_EXECUTABLE_DIR;
 const updateSnapshot = () => ({ supported: !!autoUpdater, ...updateState });
 
-/** Release notes (HTML from GitHub, or a list of them) as plain text. */
+/** Release notes (HTML or Markdown, or a list of them) as plain text. */
 function notesText(notes) {
   const raw = Array.isArray(notes) ? notes.map(n => (n && n.note) || '').join('\n\n') : String(notes || '');
   return raw
@@ -1001,6 +1001,12 @@ function notesText(notes) {
     .replace(/<\/\s*(p|div|h[1-6]|ul|ol|li|pre)\s*>/gi, '\n')
     .replace(/<[^>]*>/g, '')
     .replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
+    // Markdown: headings, bullets, emphasis, code and links become plain text.
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^[ \t]*[-*+][ \t]+/gm, '• ')
+    .replace(/\*\*([^*]+)\*\*|__([^_]+)__/g, '$1$2')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n')
     .trim()
     .slice(0, 4000);

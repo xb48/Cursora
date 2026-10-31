@@ -1,0 +1,66 @@
+# Builds Cursora on Windows and publishes a GitHub release when a version tag
+# (v<version>, matching package.json) is pushed. Installed copies of Cursora
+# pick the release up automatically.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Check the tag, version and release notes
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $version"
+            exit 1
+          fi
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "::error::RELEASE_NOTES.md is missing or empty"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and upload to a draft release
+        run: npm run dist
+        env:
+          CURSORA_PUBLISH: '1'
+          EP_DRAFT: 'true'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish the release with its notes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          assets=$(gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name')
+          echo "Uploaded assets:"; echo "$assets"
+          for f in "Cursora-Setup-$version.exe" "Cursora-Setup-$version.exe.blockmap" "latest.yml" "Cursora-Portable-$version.exe"; do
+            if ! grep -qx "$f" <<< "$assets"; then
+              echo "::error::$f was not uploaded; the release stays a draft"
+              exit 1
+            fi
+          done
+          gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+            --title "Cursora $version" --notes-file RELEASE_NOTES.md --draft=false --latest
