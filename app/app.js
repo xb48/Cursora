@@ -1121,6 +1121,50 @@ function renderHistory() {
 }
 
 // Settings ───────────────────────────────────────────────────────────────────
+/** The Discord account panel in Settings (refreshed in place as linking progresses). */
+function discordPanelBody() {
+  const d = ui.state.discord || { linked: false, status: 'idle' };
+  const p = d.profile;
+  const err = d.error ? `<div class="dc-note ${d.status === 'error' ? 'err' : ''}">${icon('info')}<span>${esc(d.error)}</span></div>` : '';
+  if (!d.linked) {
+    const linking = d.status === 'linking';
+    return `
+      <div class="panel-title">Discord account</div>
+      <div class="prow">
+        <span class="prow-icon dc-icon">${icon('discord')}</span>
+        <div class="prow-text"><b>${linking ? 'Waiting for Discord…' : 'Link your Discord account'}</b>
+          <span>${linking ? 'Finish signing in on the Discord page that opened in your browser.' : 'Optional. Shows your Discord profile here. Cursora only reads your username, avatar, user ID and email, and you sign in on Discord itself.'}</span></div>
+        ${linking ? '<button class="btn ghost sm" data-action="discord-cancel">Cancel</button>'
+          : `<button class="btn primary sm" data-action="discord-link">${icon('discord')}Link Discord</button>`}
+      </div>
+      ${err}
+      ${d.canStore === false ? `<div class="dc-note">${icon('info')}<span>Secure storage isn't available on this PC, so the link lasts until Cursora quits.</span></div>` : ''}`;
+  }
+  const name = p.globalName || p.username;
+  const handle = p.discriminator ? `${p.username}#${p.discriminator}` : `@${p.username}`;
+  const initials = esc((name || '?').slice(0, 1).toUpperCase());
+  return `
+    <div class="panel-title">Discord account</div>
+    <div class="dc-card">
+      ${p.avatar ? `<img class="dc-avatar" src="${esc(p.avatar)}" alt="">` : `<span class="dc-avatar dc-initials">${initials}</span>`}
+      <div class="dc-who"><b>${esc(name)}</b><span>${esc(handle)}</span></div>
+      <div class="dc-actions">
+        <button class="btn ghost sm" data-action="${d.needsReconnect ? 'discord-link' : 'discord-refresh'}" ${d.status === 'refreshing' ? 'disabled' : ''}>${icon('refresh')}${d.needsReconnect ? 'Reconnect' : d.status === 'refreshing' ? 'Refreshing…' : 'Refresh'}</button>
+        <button class="btn danger sm" data-action="discord-unlink">Unlink</button>
+      </div>
+    </div>
+    <div class="dc-fields">
+      <div class="dc-field"><small>Username</small><span>${esc(handle)}</span></div>
+      <div class="dc-field"><small>User ID</small><span class="mono">${esc(p.id)}</span><button class="icon-btn" data-action="discord-copy-id" title="Copy user ID">${icon('copy')}</button></div>
+      <div class="dc-field"><small>Email</small><span>${p.email ? esc(p.email) : 'Not shared'}</span>${p.email ? `<span class="dc-badge ${p.verified ? 'ok' : ''}">${p.verified ? 'Verified' : 'Unverified'}</span>` : ''}</div>
+    </div>
+    ${err}`;
+}
+function refreshDiscordUI() {
+  const panel = $('#discordPanel');
+  if (panel) panel.innerHTML = discordPanelBody();
+}
+
 /** The Updates panel in Settings (also refreshed in place as an update progresses). */
 function updatePanelBody() {
   const u = ui.state.update || { supported: false, status: 'idle' };
@@ -1215,6 +1259,7 @@ function renderSettings() {
           ${toggleRow('terminal', 'minimizeOnSummon', 'Minimize when summoning from here', 'Gets this window out of the way so you can see the animation.')}
           ${toggleRow('monitor', 'followCursor', 'Follow the cursor across displays', 'Summon on the monitor your mouse is on, instead of the primary one.')}
         </section>
+        <section class="panel glass" id="discordPanel">${discordPanelBody()}</section>
         <section class="panel glass" id="updatePanel">${updatePanelBody()}</section>
         <section class="panel glass">
           <div class="panel-title">Data</div>
@@ -1345,6 +1390,21 @@ const actions = {
   'update-check': async () => { ui.state.update = await api.checkUpdates(); refreshUpdateUI(); },
   'update-download': async () => { ui.state.update = await api.downloadUpdate(); refreshUpdateUI(); },
   'update-install': () => api.installUpdate(),
+  // Discord state reaches the window only through 'discord' events (every change sends one),
+  // so a slower reply can never overwrite a newer state.
+  'discord-link': () => api.linkDiscord(),
+  'discord-cancel': () => api.cancelDiscord(),
+  'discord-refresh': async () => {
+    await api.refreshDiscord();
+    if (ui.state.discord.linked && !ui.state.discord.error) toast('Discord profile refreshed');
+  },
+  'discord-unlink': async () => {
+    const ok = await confirmDialog({ title: 'Unlink Discord?', body: 'Your Discord profile is removed from Cursora and its access to your account is revoked. You can link it again at any time.', confirm: 'Unlink', danger: true });
+    if (!ok) return;
+    await api.unlinkDiscord();
+    toast('Discord account unlinked');
+  },
+  'discord-copy-id': async () => { await api.copyText(ui.state.discord.profile.id); toast('User ID copied'); },
   'xh-apply': el => {
     const p = XK.PRESETS.find(x => x.id === el.dataset.id);
     if (p) xhPatch({ design: XK.normalize(p.design) }, `${p.name} is now your crosshair`).then(xhRefresh);
@@ -1641,6 +1701,12 @@ async function boot() {
   });
   api.on('state', state => { ui.state = state; applyTheme(); render(); });
   api.on('window:maximized', max => document.body.classList.toggle('maximized', max));
+  api.on('discord', d => {
+    const wasLinked = ui.state.discord && ui.state.discord.linked;
+    ui.state.discord = d;
+    refreshDiscordUI();
+    if (d.linked && !wasLinked) toast(`Linked as ${d.profile.globalName || d.profile.username}`);
+  });
   api.on('update', u => {
     const before = ui.state.update && ui.state.update.status;
     ui.state.update = u;

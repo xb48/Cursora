@@ -90,6 +90,7 @@ Preview it at actual size or zoomed up to ×8, save up to 100 crosshairs, and sh
 - **Dark and light themes** that follow Windows.
 - **Global hotkeys** for the animation and the crosshair.
 - **Automatic updates** that install silently and show what's new.
+- **Optional Discord account link**: see your Discord profile in Settings. You sign in on Discord itself, and the details are stored encrypted on your PC.
 
 <p align="center"><img src="assets/screenshots/light-theme.png" alt="The Crosshairs page in the light theme" width="820"></p>
 

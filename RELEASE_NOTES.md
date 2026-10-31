@@ -1,11 +1,5 @@
-## Welcome to Cursora 2.18.0
+## What's new in Cursora 2.19.0
 
-The first public release of Cursora: animations that follow your pointer, custom Windows cursors and pixel-perfect crosshairs, in one tray app.
-
-- **27 animations**: whips, props and companions, each with its own trigger, sound and effect, plus a live Studio playground.
-- **Custom Windows cursors**: 11 themed packs (some animated), 24 presets and a designer with shapes, finishes, colours, patterns and flags.
-- **Crosshairs**: a click-through overlay with 128 presets and its own hotkey (`Ctrl+Alt+X`).
-- **Crosshair Editor**: colour modes, animations, glow, drop shadow, line layouts, circle styles and chevrons, with share codes.
-- **Automatic updates**: new versions download in the background and install when Cursora restarts.
-
-Download **Cursora-Setup-2.18.0.exe** below to install, or **Cursora-Portable-2.18.0.exe** to run without installing.
+- **Link your Discord account** (optional): Settings → Discord account shows your Discord profile picture, name, username, user ID and email.
+- You sign in on Discord's own page in your browser, so Cursora never sees your Discord password. Cursora only reads your profile and email, and keeps them encrypted on your PC.
+- **Unlink** at any time: Cursora's access to your Discord account is revoked and your details are removed from this PC.

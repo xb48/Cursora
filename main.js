@@ -1,8 +1,10 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, nativeImage, nativeTheme, screen, globalShortcut, shell, clipboard } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, nativeImage, nativeTheme, screen, globalShortcut, shell, clipboard, safeStorage, net } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { pathToFileURL } = require('url');
+const crypto = require('crypto');
+const http = require('http');
 const { execFile } = require('child_process');
 
 // ── Win32 FFI (Windows only) ────────────────────────────────────────────────
@@ -340,6 +342,7 @@ function snapshot() {
     stats: config.stats,
     crosshair: config.crosshair,
     update: updateSnapshot(),
+    discord: discordSnapshot(),
     whatsNew: config.updates.notes && config.updates.notes.version === app.getVersion() ? config.updates.notes : null,
     crossHotkeyOk,
     crossScreen: (({ width, height }) => ({ width, height, count: screen.getAllDisplays().length }))(screen.getPrimaryDisplay().size),
@@ -1107,6 +1110,241 @@ ipcMain.handle('update:seen', () => {
   return snapshot();
 });
 
+// ── Discord account (optional) ──────────────────────────────────────────────
+// Links the user's Discord account to show their profile in Settings. Sign-in
+// happens in the system browser with OAuth2 authorization code + PKCE, so no
+// client secret ships with the app and Cursora never sees the Discord password.
+// Discord redirects back to a short-lived listener on 127.0.0.1. Tokens and the
+// profile are stored encrypted with the OS (DPAPI on Windows) in discord.json.
+// Requires, in the Discord Developer Portal (OAuth2): the redirect URI below and
+// "Public Client" turned on.
+const DISCORD_CLIENT_ID = '1566214286429134931';
+const DISCORD_PORT = 47819;
+const DISCORD_REDIRECT = `http://127.0.0.1:${DISCORD_PORT}/callback`;
+const DISCORD_SCOPES = 'identify email';
+const DISCORD_LINK_TIMEOUT_MS = 5 * 60 * 1000;
+const discordBase = (() => {
+  // For testing against a local mock of Discord (loopback only).
+  const test = process.env.CURSORA_DISCORD_TEST_BASE;
+  if (test) {
+    try {
+      const u = new URL(test);
+      if (u.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(u.hostname)) {
+        return { site: test.replace(/\/$/, ''), api: `${test.replace(/\/$/, '')}/api/v10`, cdn: `${test.replace(/\/$/, '')}/cdn` };
+      }
+    } catch { /* not a URL: ignored */ }
+  }
+  return { site: 'https://discord.com', api: 'https://discord.com/api/v10', cdn: 'https://cdn.discordapp.com' };
+})();
+const discordFile = () => path.join(app.getPath('userData'), 'discord.json');
+let discordAccount = null;                // { tokens: {...}, profile: {...} } once linked
+const discordState = { status: 'idle', error: null }; // idle | linking | refreshing | error
+let discordLink = null;                   // the sign-in in progress: { server, timer }
+
+const b64url = buf => buf.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const discordSnapshot = () => ({
+  ...discordState,
+  linked: !!discordAccount,
+  needsReconnect: !!(discordAccount && discordAccount.needsReconnect),
+  canStore: safeStorage.isEncryptionAvailable(),
+  profile: discordAccount ? discordAccount.profile : null,
+});
+function setDiscord(patch) {
+  Object.assign(discordState, patch);
+  notify('discord', discordSnapshot());
+}
+
+function saveDiscord() {
+  try {
+    if (!discordAccount) { fs.rmSync(discordFile(), { force: true }); return; }
+    // Never written in the clear: without OS encryption the link lasts until Cursora quits.
+    if (!safeStorage.isEncryptionAvailable()) return;
+    const blob = safeStorage.encryptString(JSON.stringify(discordAccount)).toString('base64');
+    fs.writeFileSync(discordFile(), JSON.stringify({ v: 1, data: blob }));
+  } catch (e) {
+    console.warn('cursora: could not save the Discord account:', e.message);
+  }
+}
+function loadDiscord() {
+  try {
+    if (!fs.existsSync(discordFile()) || !safeStorage.isEncryptionAvailable()) return;
+    const raw = JSON.parse(fs.readFileSync(discordFile(), 'utf8'));
+    const acc = JSON.parse(safeStorage.decryptString(Buffer.from(raw.data, 'base64')));
+    if (acc && acc.tokens && acc.tokens.access_token && acc.profile && acc.profile.id) discordAccount = acc;
+  } catch (e) {
+    console.warn('cursora: the saved Discord account could not be read; it was removed:', e.message);
+    fs.rmSync(discordFile(), { force: true });
+  }
+}
+
+/** A Discord API call with a timeout; throws an Error with .status on failure. */
+async function discordFetch(url, options = {}) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    const res = await net.fetch(url, { ...options, signal: ctrl.signal });
+    const text = await res.text();
+    let body = null;
+    try { body = text ? JSON.parse(text) : null; } catch { body = null; }
+    if (!res.ok) {
+      const err = new Error((body && (body.error_description || body.message || body.error)) || `HTTP ${res.status}`);
+      err.status = res.status;
+      err.code = body && body.error;
+      throw err;
+    }
+    return body;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+const form = obj => ({ method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(obj).toString() });
+const withExpiry = t => ({ access_token: t.access_token, refresh_token: t.refresh_token || null, scope: t.scope || '', expires_at: Date.now() + (Number(t.expires_in) || 604800) * 1000 });
+
+/** The signed-in user's profile, with the avatar downloaded as a data URL. */
+async function fetchDiscordProfile(accessToken) {
+  const u = await discordFetch(`${discordBase.api}/users/@me`, { headers: { Authorization: `Bearer ${accessToken}` } });
+  if (!u || typeof u.id !== 'string') throw new Error('Discord returned no profile.');
+  const legacy = u.discriminator && u.discriminator !== '0';
+  const avatarUrl = u.avatar
+    ? `${discordBase.cdn}/avatars/${u.id}/${u.avatar}.png?size=128`
+    : `${discordBase.cdn}/embed/avatars/${legacy ? Number(u.discriminator) % 5 : Number((BigInt(u.id) >> 22n) % 6n)}.png`;
+  let avatar = null;
+  try {
+    const res = await net.fetch(avatarUrl);
+    if (res.ok) {
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.length < 2 * 1024 * 1024) avatar = `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}`;
+    }
+  } catch { /* no avatar: the panel shows initials */ }
+  return {
+    id: u.id,
+    username: String(u.username || ''),
+    globalName: u.global_name ? String(u.global_name) : null,
+    discriminator: legacy ? String(u.discriminator) : null,
+    email: typeof u.email === 'string' ? u.email : null,
+    verified: !!u.verified,
+    avatar,
+    updatedAt: Date.now(),
+  };
+}
+
+function finishLink() {
+  if (!discordLink) return;
+  clearTimeout(discordLink.timer);
+  // Stop listening and drop idle keep-alive sockets, so a later attempt can't be
+  // answered by this (stale) listener.
+  try { discordLink.server.close(); discordLink.server.closeIdleConnections(); } catch { /* already closed */ }
+  discordLink = null;
+}
+const callbackPage = (title, text, ok) => `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title><style>
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b0c10;color:#eceef3;font:16px "Segoe UI",system-ui,sans-serif}
+  .c{text-align:center;padding:40px 48px;border-radius:20px;background:#15161c;border:1px solid rgba(255,255,255,.08);max-width:420px}
+  .i{width:56px;height:56px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;font-size:28px;background:${ok ? 'rgba(137,207,240,.15);color:#89cff0' : 'rgba(255,90,106,.12);color:#ff5a6a'}}
+  h1{font-size:22px;margin:0 0 8px}p{color:#9aa3b2;margin:0;line-height:1.5}</style></head>
+  <body><div class="c"><div class="i">${ok ? '&#10003;' : '!'}</div><h1>${title}</h1><p>${text}</p></div></body></html>`;
+
+/** Starts linking: opens Discord's consent page in the browser and waits for its redirect. */
+function linkDiscord() {
+  if (discordLink) return;
+  const verifier = b64url(crypto.randomBytes(48));
+  const challenge = b64url(crypto.createHash('sha256').update(verifier).digest());
+  const state = b64url(crypto.randomBytes(24));
+  const server = http.createServer(async (req, res) => {
+    const url = new URL(req.url, DISCORD_REDIRECT);
+    // Every reply closes its connection: browsers would otherwise reuse it for the next attempt.
+    if (url.pathname !== '/callback') { res.writeHead(404, { Connection: 'close' }); res.end(); return; }
+    const reply = (code, title, text, ok) => { res.writeHead(code, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', Connection: 'close' }); res.end(callbackPage(title, text, ok)); };
+    if (url.searchParams.get('state') !== state) { reply(400, 'Link expired', 'This sign-in link is no longer valid. Start again from Cursora.', false); return; }
+    finishLink();
+    const denied = url.searchParams.get('error');
+    if (denied) {
+      reply(200, 'Linking cancelled', 'Your Discord account was not linked. You can close this tab.', false);
+      setDiscord({ status: 'idle', error: denied === 'access_denied' ? null : `Discord refused the request: ${denied}` });
+      return;
+    }
+    try {
+      const tokens = await discordFetch(`${discordBase.api}/oauth2/token`, form({
+        grant_type: 'authorization_code', code: url.searchParams.get('code') || '', redirect_uri: DISCORD_REDIRECT,
+        client_id: DISCORD_CLIENT_ID, code_verifier: verifier,
+      }));
+      const granted = String(tokens.scope || '').split(' ');
+      const profile = await fetchDiscordProfile(tokens.access_token);
+      discordAccount = { tokens: withExpiry(tokens), profile, needsReconnect: false };
+      saveDiscord();
+      reply(200, 'Discord account linked', 'You can close this tab and return to Cursora.', true);
+      setDiscord({ status: 'idle', error: granted.includes('email') ? null : 'Linked without email access, so your email is not shown.' });
+      showMainWindow();
+    } catch (e) {
+      const msg = e.code === 'invalid_client' || /client_secret|public client/i.test(e.message)
+        ? 'Discord rejected the sign-in: turn on "Public Client" for this app in the Discord Developer Portal.'
+        : e.code === 'invalid_grant' ? 'Discord rejected the sign-in code. Please try again.'
+          : `Couldn't link Discord: ${e.message}`;
+      reply(200, "Couldn't link Discord", msg, false);
+      setDiscord({ status: 'error', error: msg });
+    }
+  });
+  server.on('error', e => {
+    finishLink();
+    setDiscord({ status: 'error', error: e.code === 'EADDRINUSE' ? `Port ${DISCORD_PORT} is in use by another app, so Discord can't reach Cursora.` : `Couldn't start linking: ${e.message}` });
+  });
+  server.listen(DISCORD_PORT, '127.0.0.1', () => {
+    const q = new URLSearchParams({
+      client_id: DISCORD_CLIENT_ID, response_type: 'code', redirect_uri: DISCORD_REDIRECT, scope: DISCORD_SCOPES,
+      state, code_challenge: challenge, code_challenge_method: 'S256', prompt: 'consent',
+    });
+    shell.openExternal(`${discordBase.site}/oauth2/authorize?${q}`);
+  });
+  discordLink = {
+    server,
+    timer: setTimeout(() => { finishLink(); setDiscord({ status: 'error', error: 'Linking timed out. Try again when you are ready.' }); }, DISCORD_LINK_TIMEOUT_MS),
+  };
+  setDiscord({ status: 'linking', error: null });
+}
+
+/** A valid access token, refreshing it first when it is close to expiring. */
+async function discordToken() {
+  const t = discordAccount.tokens;
+  if (t.expires_at - Date.now() > 24 * 3600 * 1000) return t.access_token;
+  if (!t.refresh_token) throw Object.assign(new Error('expired'), { status: 401 });
+  const fresh = await discordFetch(`${discordBase.api}/oauth2/token`, form({ grant_type: 'refresh_token', refresh_token: t.refresh_token, client_id: DISCORD_CLIENT_ID }));
+  discordAccount.tokens = withExpiry({ ...fresh, refresh_token: fresh.refresh_token || t.refresh_token });
+  saveDiscord();
+  return discordAccount.tokens.access_token;
+}
+/** Re-reads the profile (and keeps the token fresh); a revoked link asks to reconnect. */
+async function refreshDiscord() {
+  if (!discordAccount || discordState.status === 'refreshing') return;
+  setDiscord({ status: 'refreshing', error: null });
+  try {
+    discordAccount.profile = await fetchDiscordProfile(await discordToken());
+    discordAccount.needsReconnect = false;
+    saveDiscord();
+    setDiscord({ status: 'idle', error: null });
+  } catch (e) {
+    if (e.status === 400 || e.status === 401) {
+      discordAccount.needsReconnect = true;
+      saveDiscord();
+      setDiscord({ status: 'idle', error: 'Discord access has expired or was removed. Reconnect to update your profile.' });
+    } else setDiscord({ status: 'error', error: "Couldn't reach Discord. Check your connection." });
+  }
+}
+async function unlinkDiscord() {
+  finishLink();
+  const acc = discordAccount;
+  discordAccount = null;
+  saveDiscord();
+  setDiscord({ status: 'idle', error: null });
+  if (acc) {
+    // Best effort: also end the authorization on Discord's side.
+    discordFetch(`${discordBase.api}/oauth2/token/revoke`, form({ token: acc.tokens.refresh_token || acc.tokens.access_token, token_type_hint: acc.tokens.refresh_token ? 'refresh_token' : 'access_token', client_id: DISCORD_CLIENT_ID })).catch(() => {});
+  }
+}
+
+ipcMain.handle('discord:link', () => { linkDiscord(); return discordSnapshot(); });
+ipcMain.handle('discord:cancel', () => { finishLink(); setDiscord({ status: 'idle', error: null }); return discordSnapshot(); });
+ipcMain.handle('discord:refresh', async () => { await refreshDiscord(); return discordSnapshot(); });
+ipcMain.handle('discord:unlink', async () => { await unlinkDiscord(); return discordSnapshot(); });
+
 // ── App window ──────────────────────────────────────────────────────────────
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -1178,6 +1416,8 @@ if (!app.requestSingleInstanceLock()) {
     rebuildTrayMenu();
 
     setupUpdates();
+    loadDiscord();
+    if (discordAccount) setTimeout(refreshDiscord, 8000);
     updateCrosshair();
     for (const ev of ['display-added', 'display-removed', 'display-metrics-changed']) screen.on(ev, onDisplaysChanged);
     if (!registerHotkey(config.prefs.hotkey)) {
@@ -1187,7 +1427,7 @@ if (!app.requestSingleInstanceLock()) {
   });
 
   app.on('activate', showMainWindow); // macOS dock click
-  app.on('before-quit', () => { resetCursorsForExit(); flushConfig(); });
+  app.on('before-quit', () => { finishLink(); resetCursorsForExit(); flushConfig(); });
   app.on('will-quit', () => { resetCursorsForExit(); globalShortcut.unregisterAll(); });
   app.on('session-end', () => resetCursorsForExit());
   process.on('exit', () => resetCursorsForExit());

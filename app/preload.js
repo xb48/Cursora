@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-const EVENTS = ['state', 'stats', 'overlay:state', 'window:maximized', 'update'];
+const EVENTS = ['state', 'stats', 'overlay:state', 'window:maximized', 'update', 'discord'];
 
 contextBridge.exposeInMainWorld('openwhip', {
   getState: () => ipcRenderer.invoke('app:state'),
@@ -21,6 +21,10 @@ contextBridge.exposeInMainWorld('openwhip', {
   downloadUpdate: () => ipcRenderer.invoke('update:download'),
   installUpdate: () => ipcRenderer.invoke('update:install'),
   dismissWhatsNew: () => ipcRenderer.invoke('update:seen'),
+  linkDiscord: () => ipcRenderer.invoke('discord:link'),
+  cancelDiscord: () => ipcRenderer.invoke('discord:cancel'),
+  refreshDiscord: () => ipcRenderer.invoke('discord:refresh'),
+  unlinkDiscord: () => ipcRenderer.invoke('discord:unlink'),
   windowControl: (action) => ipcRenderer.send('window:control', action),
   openExternal: (url) => ipcRenderer.send('shell:open', url),
   on: (channel, fn) => {

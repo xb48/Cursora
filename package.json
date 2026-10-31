@@ -1,7 +1,7 @@
 {
   "name": "openwhip",
   "productName": "Cursora",
-  "version": "2.18.0",
+  "version": "2.19.0",
   "description": "Your cursor, reimagined.",
   "license": "MIT",
   "main": "main.js",
