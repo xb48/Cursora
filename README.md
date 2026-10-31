@@ -162,7 +162,7 @@ Found a bug or have an idea? Join the [Discord server](https://discord.gg/qat8yU
 
 ## Credits
 
-Cursora began as a fork of [OpenWhip](https://github.com/GitFrog1111/OpenWhip) by GitFrog1111, released under the MIT license.
+[Cursora](https://github.com/xb48/Cursora) by [Xb48](https://github.com/xb48).
 
 ## License
 
