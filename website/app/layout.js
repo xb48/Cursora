@@ -36,7 +36,10 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
+    // Browser extensions (wallets, translators, password managers) add attributes to <html>
+    // before React loads. This ignores attribute differences on <html> itself only; the rest of
+    // the page is still checked.
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <body>
         <Header />
         <main id="main">{children}</main>
