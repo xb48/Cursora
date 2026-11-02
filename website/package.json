@@ -2,11 +2,11 @@
   "name": "cursora-website",
   "private": true,
   "version": "1.0.0",
-  "description": "The Cursora landing page (static Next.js site).",
+  "description": "The Cursora website (static Next.js site).",
   "scripts": {
     "sync": "node scripts/sync-assets.mjs",
     "dev": "npm run sync && next dev",
-    "build": "npm run sync && next build",
+    "build": "npm run sync && next build && node scripts/fix-export.mjs",
     "preview": "npx serve out"
   },
   "dependencies": {

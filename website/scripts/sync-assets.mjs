@@ -42,6 +42,32 @@ const iconScope = {};
 new Function('window', fs.readFileSync(path.join(APP, 'app', 'icons.js'), 'utf8'))(iconScope);
 const icons = iconScope.ICONS;
 if (!icons || !icons.download || !icons.discord) throw new Error('could not read app/icons.js');
-const info = { version: pkg.version, animations, presetCount, icons };
+// Release history from GitHub (download page and changelog). Offline builds still
+// work: the pages then link to the Releases page instead of listing files.
+const kindOf = name => (/^Cursora-Setup-[\d.]+\.exe$/.test(name) ? 'installer' : /^Cursora-Portable-[\d.]+\.exe$/.test(name) ? 'portable' : null);
+let releases = [];
+try {
+  const res = await fetch('https://api.github.com/repos/xb48/Cursora/releases?per_page=50', {
+    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'cursora-website-build' },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`GitHub answered ${res.status}`);
+  releases = (await res.json())
+    .filter(r => !r.draft && !r.prerelease)
+    .map(r => ({
+      tag: r.tag_name,
+      version: r.tag_name.replace(/^v/, ''),
+      name: r.name || r.tag_name,
+      date: r.published_at,
+      url: r.html_url,
+      notes: r.body || '',
+      assets: r.assets
+        .filter(a => kindOf(a.name))
+        .map(a => ({ kind: kindOf(a.name), name: a.name, size: a.size, sha256: (a.digest || '').replace(/^sha256:/, '') || null, url: a.browser_download_url })),
+    }));
+} catch (e) {
+  console.warn(`warning: release history not fetched (${e.message}); download links will point to the Releases page`);
+}
+const info = { version: pkg.version, animations, presetCount, icons, releases, builtAt: new Date().toISOString() };
 fs.writeFileSync(path.join(SITE, 'lib', 'generated.json'), JSON.stringify(info, null, 2));
-console.log(`synced: v${info.version}, ${animations.length} animations, ${presetCount} crosshair presets`);
+console.log(`synced: v${info.version}, ${animations.length} animations, ${presetCount} crosshair presets, ${releases.length} releases`);
