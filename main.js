@@ -1020,6 +1020,7 @@ function updateError(err) {
   if (/net::ERR_|ENOTFOUND|EAI_AGAIN|ETIMEDOUT|ECONNREFUSED|ECONNRESET|socket hang up/i.test(msg)) return "Couldn't reach the update server. Check your connection.";
   if (/\b404\b|Cannot find latest|No published versions|Unable to find latest version/i.test(msg)) return NO_RELEASE;
   if (/sha512 checksum mismatch/i.test(msg)) return 'The download was damaged, so it was discarded. It will be retried.';
+  if (/is not signed by the application owner/i.test(msg)) return "The update's digital signature doesn't match Cursora's publisher, so it was not installed.";
   return msg.split('\n')[0].slice(0, 160);
 }
 const NO_RELEASE = 'No release is published yet.';

@@ -11,3 +11,12 @@ promo/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Never commit certificates or private keys (signing is configured with environment
+# variables and GitHub secrets: docs/code-signing.md)
+*.pfx
+*.p12
+*.pem
+*.key
+*.jks
+*.snk

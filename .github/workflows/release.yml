@@ -1,6 +1,11 @@
 # Builds Cursora on Windows and publishes a GitHub release when a version tag
 # (v<version>, matching package.json) is pushed. Installed copies of Cursora
 # pick the release up automatically.
+#
+# Code signing (docs/code-signing.md): configure it with repository Variables and
+# Secrets, no file changes. Until a certificate is configured the release is
+# unsigned; set the variable CURSORA_REQUIRE_SIGNING to true once it is, and a
+# release that is not properly signed can no longer be published.
 name: Release
 
 on:
@@ -17,6 +22,15 @@ concurrency:
 jobs:
   release:
     runs-on: windows-latest
+    env:
+      # Signing settings that are not secret (Settings > Secrets and variables > Actions > Variables).
+      CURSORA_REQUIRE_SIGNING: ${{ vars.CURSORA_REQUIRE_SIGNING }}
+      CURSORA_SIGN_MODE: ${{ vars.CURSORA_SIGN_MODE }}
+      CURSORA_PUBLISHER_NAME: ${{ vars.CURSORA_PUBLISHER_NAME }}
+      CURSORA_TIMESTAMP_URL: ${{ vars.CURSORA_TIMESTAMP_URL }}
+      CURSORA_AZURE_ENDPOINT: ${{ vars.CURSORA_AZURE_ENDPOINT }}
+      CURSORA_AZURE_ACCOUNT: ${{ vars.CURSORA_AZURE_ACCOUNT }}
+      CURSORA_AZURE_PROFILE: ${{ vars.CURSORA_AZURE_PROFILE }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,12 +55,39 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check the signing scripts
+        run: npm run test:signing
+
+      # electron-builder installs this module itself but does not notice when that fails
+      # on a fresh machine; installing it here makes a failure visible and stops the release.
+      - name: Prepare Azure Artifact Signing
+        if: ${{ vars.CURSORA_AZURE_ENDPOINT != '' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser | Out-Null
+          Install-Module -Name TrustedSigning -RequiredVersion 0.4.1 -Force -Repository PSGallery -Scope CurrentUser
+          if (-not (Get-Command Invoke-TrustedSigning -ErrorAction SilentlyContinue)) { throw 'The TrustedSigning module did not install.' }
+          Write-Host 'TrustedSigning 0.4.1 is ready.'
+
       - name: Build and upload to a draft release
         run: npm run dist
         env:
           CURSORA_PUBLISH: '1'
           EP_DRAFT: 'true'
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Signing secrets: only this step sees them, and GitHub hides their values in the logs.
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          CURSORA_SIGN_COMMAND: ${{ secrets.CURSORA_SIGN_COMMAND }}
+
+      # Everything is checked before the release is published: if a signature, the
+      # publisher name or the update metadata is wrong, the release stays a draft.
+      - name: Verify the signatures and update metadata
+        run: node scripts/verify-signing.js
 
       - name: Publish the release with its notes
         shell: bash

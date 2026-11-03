@@ -47,7 +47,9 @@
     "dist": "node scripts/build-win.js",
     "icon": "electron scripts/make-icon.js",
     "logo": "electron scripts/make-web-logo.js",
-    "pack": "npm pack"
+    "pack": "npm pack",
+    "test:signing": "node --test scripts/signing-config.test.js",
+    "verify:signing": "node scripts/verify-signing.js"
   },
   "dependencies": {
     "electron": "^33.4.11",

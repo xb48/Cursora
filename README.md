@@ -151,6 +151,10 @@ Releases are built and published automatically by GitHub Actions ([`.github/work
 
 The workflow checks that the tag matches `package.json` and builds the installer, the portable app, the blockmap and `latest.yml` on Windows. It uploads them to a draft release, confirms every file arrived, then publishes the release. Installed copies find it, download it in the background and install it on their next restart.
 
+### Code signing
+
+Releases are **unsigned until a code-signing certificate is configured**, which is why Windows SmartScreen warns on first install. The build is ready to sign with [Azure Artifact Signing](https://learn.microsoft.com/en-us/azure/artifact-signing/overview), a certificate in a file or the Windows certificate store, or a vendor's signing tool, all configured with GitHub Variables and Secrets (nothing secret is ever committed). When signing is on, the release workflow signs every shipped binary with a timestamp, checks the signatures, the publisher name and `latest.yml` with `npm run verify:signing`, and leaves the release as a draft if anything is wrong. Installed copies also refuse an update that wasn't signed by the same publisher. [docs/code-signing.md](docs/code-signing.md) compares the options (cost, eligibility, what to buy) and explains the setup step by step.
+
 ## Project structure
 
 ```
@@ -159,8 +163,9 @@ preload.js         bridge for the animation overlays
 app/               the app window (pages, styles, icons), cursor and crosshair engines
 animations/        one folder per animation (see animations/README.md)
 icon/              vector logo and the generated app icons
+docs/              guides (code signing)
 assets/            brand logos, social preview and README screenshots
-scripts/           build, icon and logo scripts
+scripts/           build, icon and logo scripts, code signing and its checks
 website/           the Cursora website (static Next.js site)
 ```
 

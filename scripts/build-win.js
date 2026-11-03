@@ -4,6 +4,11 @@
 //   win-unpacked/Cursora.exe        the unpacked app folder
 //   latest.yml                      update metadata (version, file, SHA-512, release notes)
 //
+// Signing is configured by environment variables, never by files in the repository
+// (scripts/signing-config.js, docs/code-signing.md). Without them the build is
+// unsigned; with CURSORA_REQUIRE_SIGNING=1 an unsigned build is refused. After a
+// build, node scripts/verify-signing.js checks the signatures and update metadata.
+//
 // Releases are published by GitHub Actions (.github/workflows/release.yml) when a
 // v<version> tag is pushed: it runs this script with CURSORA_PUBLISH=1, which uploads
 // everything to a draft release; the workflow then publishes it with RELEASE_NOTES.md.
@@ -16,11 +21,23 @@
 const fs = require('fs');
 const path = require('path');
 const { build, Platform, Arch } = require('electron-builder');
+const { resolveSigning } = require('./signing-config');
 
 const ROOT = path.resolve(__dirname, '..');
 const STAGE = path.join(ROOT, 'out', 'app');
 const pkg = require(path.join(ROOT, 'package.json'));
 const KOFFI = 'node_modules/koffi';
+
+// Decide how to sign before spending time on packaging, so a misconfiguration fails fast.
+const signing = resolveSigning(process.env);
+for (const note of signing.notes) console.log(`signing: ${note}`);
+if (signing.problems.length) {
+  console.error('\nSigning is not configured correctly:');
+  for (const problem of signing.problems) console.error(`  - ${problem}`);
+  console.error('\nSee docs/code-signing.md.');
+  process.exit(1);
+}
+console.log(`signing: ${signing.summary}`);
 
 const copy = rel => fs.cpSync(path.join(ROOT, rel), path.join(STAGE, rel), { recursive: true });
 
@@ -82,7 +99,9 @@ build({
     npmRebuild: false,                     // koffi ships a prebuilt N-API binary
     asar: true,
     asarUnpack: ['node_modules/koffi/**'], // native .node files can't load from inside the asar
-    win: { icon },
+    win: { icon, ...signing.win },
+    // When a signing method is configured, a build that ends up unsigned is an error, not a warning.
+    forceCodeSigning: signing.signed || signing.required,
     nsis: {
       oneClick: false,
       perMachine: false,                   // installs for the current user, no admin prompt
