@@ -183,4 +183,4 @@ Found a bug or have an idea? Join the [Discord server](https://discord.gg/qat8yU
 
 ## License
 
-MIT, as declared in [`package.json`](package.json).
+MIT: see [LICENSE](LICENSE).

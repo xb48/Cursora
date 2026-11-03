@@ -45,8 +45,8 @@ HSM, so you can no longer just download a certificate file. The realistic option
 | **Azure Artifact Signing** (formerly Trusted Signing) | about $10 a month (Basic) | Individuals: USA and Canada. Organizations: USA, Canada, EU, UK | `azure` | Microsoft's recommended route for apps outside the Store. Needs a paid Azure subscription (not free, trial or sponsored). Identity check with a government ID. Built for CI. |
 | **OV certificate on a cloud HSM** (SSL.com, DigiCert, Sectigo, GlobalSign...) | about $150 to $300 a year | Worldwide | `command` | The route outside the regions above. Keys must be in hardware or a cloud HSM, and certificates last at most about 15 months. Each vendor has its own signing tool. |
 | **Certum "open source" certificate** | from about 49 EUR (check the shop) | Worldwide | `store` (local builds) | Cheapest. The subject carries an "Open Source Developer" prefix. Its cloud signing uses one-time passwords, which suits signing on your own PC rather than in GitHub Actions. |
-| **SignPath Foundation** | Free for open source | Qualifying open-source projects | Not supported here | The publisher shown is "SignPath Foundation", needs an OSI-approved license file, multi-factor authentication for every maintainer, and manual approval for every release. It signs after the build, whereas this pipeline signs during it so that `latest.yml` stays correct; adopting it would need an extra re-hash step. |
-| **Microsoft Store (MSIX)** | Free | Anyone | Not supported here | Microsoft re-signs the package and users never see SmartScreen. It needs different packaging and Store certification. |
+| **SignPath Foundation** | Free for open source | Qualifying open-source projects, after an application | Planned: [free routes](#free-routes) | The publisher shown is "SignPath Foundation", it needs an OSI-approved license file, multi-factor authentication for every maintainer, and manual approval for every release. It signs after the build, whereas this pipeline signs during it, so it needs an extra step that re-hashes `latest.yml`. |
+| **Microsoft Store (MSIX)** | Free (registration is free for individuals since September 2025) | Anyone | Not supported here: [free routes](#free-routes) | Microsoft re-signs the package and users never see SmartScreen. It needs different packaging and Store certification. |
 | **EV certificate** | $400+ a year | Worldwide | `command` or `store` | No SmartScreen advantage any more. Only worth it if a customer requires it. |
 
 **Recommendation.** If you live in the USA, Canada, the EU or the UK, choose **Azure Artifact
@@ -54,6 +54,67 @@ Signing**: cheapest, fully automated, and Microsoft-run. Anywhere else, choose a
 certificate from a CA that offers cloud signing** and use the `command` method (or Certum
 and the `store` method if you are happy to sign on your own PC). Whatever you choose,
 the identity check can take several business days, so start it early.
+
+## Free routes
+
+Two options cost nothing. Neither is instant, and neither can be completed by the build
+alone, because each needs something only you can do.
+
+### SignPath Foundation (a free certificate, after an application)
+
+[SignPath Foundation](https://signpath.org/) gives qualifying open-source projects a code-signing
+certificate for free. The key is kept in SignPath's hardware module, the signatures carry the
+publisher name **SignPath Foundation** (not yours), and **every release needs your manual approval**
+on SignPath's site. It is the same kind of OV certificate as a paid one, so [SmartScreen reputation
+still has to build](#what-signing-does-and-doesnt-do).
+Their [terms](https://signpath.org/terms) (a draft that may change) set these conditions; here is where
+Cursora stands:
+
+| Condition | Cursora |
+| --- | --- |
+| An OSI-approved license | Done: `LICENSE` (MIT) |
+| No proprietary or non-open-source component | Done: everything the app ships is MIT, ISC, BlueOak or Python-2.0 |
+| Actively maintained, already released in the form to be signed | Done: public releases |
+| Functionality described on the download page | The README and release page do; the website will once it is deployed |
+| Built from the repository in a verifiable way | Done: GitHub Actions builds each release from its tag |
+| Multi-factor authentication for every team member, on GitHub and SignPath | **You:** turn it on for your GitHub account (Settings, Password and authentication) |
+| Roles: authors, reviewers, approvers | **You:** for a one-person project, list yourself in each role |
+| A published code signing policy | **After approval** (below) |
+| Some project track record | **Unknown.** SignPath doesn't publish a threshold, and people report that very new projects with few downloads can be declined. A deployed website and a few weeks of releases help. |
+
+**Steps**
+
+1. Turn on two-factor authentication for GitHub, and deploy the website so there is a download page.
+2. Apply at [signpath.org/apply](https://signpath.org/apply). You will be asked for your project's
+   name, repository (`https://github.com/xb48/Cursora`), license (MIT), download page, a short
+   description (an app that adds mouse animations, custom Windows cursors and crosshair overlays to
+   Windows) and your contact details. Applying means accepting SignPath's terms, so you submit it
+   yourself.
+3. If approved, SignPath gives you an organization, a project and a signing policy. Add the
+   code-signing policy to the README (below), then tell me the **organization ID, project slug and
+   signing-policy slug**, and put the API token in a GitHub secret named `SIGNPATH_API_TOKEN`.
+   I then add the workflow steps that build, send the installer and portable app to SignPath, wait for
+   your approval, re-hash `latest.yml` and the blockmap for the signed files, and verify.
+
+Publishing the policy only **after** approval keeps the README truthful. The text SignPath asks for is:
+
+> **Code signing policy.** Free code signing provided by [SignPath.io](https://signpath.io), certificate
+> by [SignPath Foundation](https://signpath.org). Committers and reviewers: [Xb48](https://github.com/xb48).
+> Approvers: [Xb48](https://github.com/xb48). Privacy: Cursora runs on your PC and has no analytics;
+> see the [privacy notice](https://xb48.github.io/Cursora/privacy/).
+
+Two things to know about this route: the signing request **waits for you to approve it** (the action's
+default 10-minute wait must be raised), and SignPath signs the finished installer and portable app
+rather than every file inside them, so the app's own `Cursora.exe` stays unsigned.
+
+### Microsoft Store (free signing, no certificate)
+
+Since September 2025 anyone can register as an individual Store developer for free, and Microsoft
+signs MSIX packages itself, so Store installs show no SmartScreen warning at all. It means:
+repackaging Cursora as MSIX, passing Store certification, handing updates to the Store (the built-in
+updater is not used there), and testing the cursor, hotkey and overlay features inside the package.
+It is a real piece of work, but it is the only route that avoids SmartScreen from the first download.
+The direct download from GitHub would stay as it is.
 
 ## Setting it up
 
